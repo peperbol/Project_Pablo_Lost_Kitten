@@ -4,9 +4,9 @@ using System.Collections;
 public class Coordinates {
 
   //static constants voor de omzetting van vector3 position en co-ords
-  public static const float XSCALE = 1f;
-  public static const float YSCALE = -1f;
-  public static const float ZVALUE = 0f;
+  public const float XSCALE = 1f;
+  public const float YSCALE = -1f;
+  public const float ZVALUE = 0f;
 
   //fields
   private int xPosition = 0;
