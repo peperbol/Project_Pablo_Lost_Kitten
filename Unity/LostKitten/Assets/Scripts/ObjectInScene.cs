@@ -15,7 +15,7 @@ public abstract class ObjectInScene {
   }
 
   //constructor
-  protected ObjectInScene(GameObject prefab, int xPosition, int yPosition) { 
+  public ObjectInScene(GameObject prefab, int xPosition, int yPosition) { 
 
     Coordinate = new Coordinates(xPosition, yPosition);
 
