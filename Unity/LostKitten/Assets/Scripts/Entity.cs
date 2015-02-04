@@ -11,13 +11,13 @@ using System.Collections;
 public abstract class Entity {
 
   //private variabele
-  private EntityType entity;
+  private EntityType typeOfEntity;
 
   //property
-  public Entitytype Entity
+  public EntityType TypeOfEntity
   {
-    get { return entity; }
-    set { entity = value; }
+    get { return typeOfEntity; }
+    set { typeOfEntity = value; }
   }
 
 
