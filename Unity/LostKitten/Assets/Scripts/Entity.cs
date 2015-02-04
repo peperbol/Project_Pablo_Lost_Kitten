@@ -8,16 +8,35 @@ using System.Collections;
  */
 
 
-public abstract class Entity {
+public abstract class Entity : ObjectInScene, BlockField{
+
+  public Entity(GameObject gameObject, int xPosition, int yPosition)
+    : base(gameObject, xPosition, yPosition)
+  {
+    
+  }
+
 
   //private variabele
   private EntityType typeOfEntity;
+  public Block[,] Grid; 
 
   //property
   public EntityType TypeOfEntity
   {
     get { return typeOfEntity; }
     set { typeOfEntity = value; }
+  }
+
+
+  public int Width
+  {
+    get { return Grid.GetLength(0); }
+  }
+
+  public int Heigth
+  {
+    get { return Grid.GetLength(1); }
   }
 
 
