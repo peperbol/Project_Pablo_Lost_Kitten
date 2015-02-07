@@ -48,8 +48,8 @@ public class Block : ObjectInScene {
   }
 
   //constructor
-  public Block(int xPosition, int yPosition, BlockColor initialColor)
-    : base((GameObject)Resources.Load("Prefabs/Block", typeof(GameObject)), xPosition, yPosition)
+  public Block(int xPosition, int yPosition, BlockColor initialColor, GameObject parent)
+    : base((GameObject)Resources.Load("Prefabs/Block", typeof(GameObject)), xPosition, yPosition, parent)
   {
     Color = initialColor;
   }

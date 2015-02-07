@@ -26,6 +26,7 @@ public class Level : BlockField
   //Constuctor
   public Level (LevelTemplate levelTemplate)
   {
+    worldRoot = GameObject.FindWithTag("WorldRoot");
     template = levelTemplate;
     BuildLevel();
   }
@@ -70,7 +71,7 @@ public class Level : BlockField
     {
       for (int x = 0; x < template.Width; x++)
       {
-        grid[x,y] = new Block(x,y,template.Blocks[x,y]);
+        grid[x,y] = new Block(x,y,template.Blocks[x,y],worldRoot);
       }
     }
 
@@ -79,7 +80,7 @@ public class Level : BlockField
 
     foreach (EntityTemplate entityT in template.Entities)
     {
-      Entity newEntity ;
+      Entity newEntity = null;
       switch (entityT.Type)
       {
         case EntityType.Player:
@@ -107,7 +108,7 @@ public class Level : BlockField
     }
       //aanvullen
 
-    }
+    
   }
 
 }
