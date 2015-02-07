@@ -13,8 +13,6 @@ public class Block : ObjectInScene {
     get { return color; }
     set { 
       color = value;
-      Mathf.r
-
       // get the name of the according material 
       string materialName = "Materials/Block_";
       switch (value)
