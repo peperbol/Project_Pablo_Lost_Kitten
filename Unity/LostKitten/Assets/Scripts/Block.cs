@@ -13,8 +13,6 @@ public class Block : ObjectInScene {
     get { return color; }
     set { 
       color = value;
-      Mathf.r
-
       // get the name of the according material 
       string materialName = "Materials/Block_";
       switch (value)
@@ -50,8 +48,8 @@ public class Block : ObjectInScene {
   }
 
   //constructor
-  public Block(int xPosition, int yPosition, BlockColor initialColor)
-    : base((GameObject)Resources.Load("Prefabs/Block", typeof(GameObject)), xPosition, yPosition)
+  public Block(int xPosition, int yPosition, BlockColor initialColor, GameObject parent)
+    : base((GameObject)Resources.Load("Prefabs/Block", typeof(GameObject)), xPosition, yPosition, parent)
   {
     Color = initialColor;
   }
