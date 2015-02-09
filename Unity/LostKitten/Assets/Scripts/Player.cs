@@ -39,8 +39,8 @@ public class Player : Entity
   }
 
 
-  //geen abstract meer --> gaan nu !!eindelijk!! een waarde krijgen --> initialiseren
-  public override int Width 
+  //geen abstract meer --> gaan nu !!eindelijk!! een waarde krijgen --> initialiseren, readonly want het gaat sowieso 8 zijn de waarde (gaan het niet kunnen veranderen)
+  public override int Width //override omdat het in entity abstract is 
   {
     get { return 8; } //krijgt de waarde 8 mee 
   }

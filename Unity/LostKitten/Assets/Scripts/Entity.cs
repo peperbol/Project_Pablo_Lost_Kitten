@@ -13,26 +13,27 @@ public abstract class Entity : ObjectInScene, BlockField{
   protected Entity(GameObject gameObject, int xPosition, int yPosition, GameObject parent)// gameobject --> prefab die je gebruikt voor de entity, positie waar de entity gaat staan, de parent bv world
     : base(gameObject, xPosition, yPosition, parent)//als je een nieuwe entity gaat aanmaken, ga je deze dingen meegeven tussen de haakjes
   {
-    grid = new Block[Width, Height];
+    grid = new Block[Width, Height];//we gaan hier algemeen bepalen hoeveel ruimte ze in de breedte en lengte gaan innemen (de entity waar we het over hebben)
   }
 
 
   //variabelen
   private EntityType typeOfEntity;//soort entity --> enum, keuze uit player, exit, slider, en lever
-  public Block[,] grid; //2dimensionale array die van de interface Blockfield komt, erft er niet echt van over (is een interface, dat gaat niet) dus die moet hier terugkomen (code wordt niet automatisch hier al in "geplakt" zoals bij het overerven) 
+  private Block[,] grid; //2dimensionale array die van de interface Blockfield komt, erft er niet echt van over (is een interface, dat gaat niet) dus die moet hier terugkomen (code wordt niet automatisch hier al in "geplakt" zoals bij het overerven) 
  
 
   //property
-
   public EntityType TypeOfEntity
   {
     get { return typeOfEntity; } //geef de waarde van de entity terug (bv player, exit,..)
     set { typeOfEntity = value; } // geef een nieuwe waarde (player, exit,..) aan de entity
   }
-  public Block[,] Grid
+
+
+
+  public Block[,] Grid //read only property 
   {
     get { return grid; }
-    
   }
 
 
