@@ -2,7 +2,8 @@
 using System.Collections;
 
 public interface BlockField  {
-  Block[,] grid;
+  Block[,] Grid { get; }
+
   int Width { get; }
   int Heigth { get; } 
 }
