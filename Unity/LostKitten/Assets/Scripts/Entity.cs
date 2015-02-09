@@ -13,20 +13,26 @@ public abstract class Entity : ObjectInScene, BlockField{
   protected Entity(GameObject gameObject, int xPosition, int yPosition, GameObject parent)// gameobject --> prefab die je gebruikt voor de entity, positie waar de entity gaat staan, de parent bv world
     : base(gameObject, xPosition, yPosition, parent)//als je een nieuwe entity gaat aanmaken, ga je deze dingen meegeven tussen de haakjes
   {
-    Grid = new Block[Width, Height];
+    grid = new Block[Width, Height];
   }
 
 
   //variabelen
   private EntityType typeOfEntity;//soort entity --> enum, keuze uit player, exit, slider, en lever
-  public Block[,] Grid; //2dimensionale array die van de interface Blockfield komt, erft er niet echt van over (is een interface, dat gaat niet) dus die moet hier terugkomen (code wordt niet automatisch hier al in "geplakt" zoals bij het overerven) 
+  public Block[,] grid; //2dimensionale array die van de interface Blockfield komt, erft er niet echt van over (is een interface, dat gaat niet) dus die moet hier terugkomen (code wordt niet automatisch hier al in "geplakt" zoals bij het overerven) 
  
 
   //property
+
   public EntityType TypeOfEntity
   {
     get { return typeOfEntity; } //geef de waarde van de entity terug (bv player, exit,..)
     set { typeOfEntity = value; } // geef een nieuwe waarde (player, exit,..) aan de entity
+  }
+  public Block[,] Grid
+  {
+    get { return grid; }
+    
   }
 
 
@@ -49,12 +55,12 @@ public abstract class Entity : ObjectInScene, BlockField{
   /*
   public int Width
   {
-    get { return Grid.GetLength(0); } //property --> NIET gelinkt aan een variabele. Enkel de lengte van width teruggeven --> in de array gaan kijken [,] eerste dimensie (voor ,) is de width (de x-as)
+    get { return grid.GetLength(0); } //property --> NIET gelinkt aan een variabele. Enkel de lengte van width teruggeven --> in de array gaan kijken [,] eerste dimensie (voor ,) is de width (de x-as)
   }
 
   public int Heigth
   {
-    get { return Grid.GetLength(1); }
+    get { return grid.GetLength(1); }
   }*/
 
 
