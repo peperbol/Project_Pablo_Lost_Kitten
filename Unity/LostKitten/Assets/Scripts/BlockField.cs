@@ -5,5 +5,5 @@ public interface BlockField  {
   Block[,] Grid { get; }
 
   int Width { get; }
-  int Heigth { get; } 
+  int Height { get; } 
 }

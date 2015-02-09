@@ -22,7 +22,7 @@ public class Level : BlockField
   public int Width {
     get { return grid.GetLength(0); }
   }
-  public int Heigth
+  public int Height
   {
     get { return grid.GetLength(1); }
   }

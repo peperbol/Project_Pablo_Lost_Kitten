@@ -15,8 +15,8 @@ public static class ColorSpectrum // static zoadat andere klassen enzo er ook aa
   };
 
 // methode aanmaken: bool IsAdjacent (blockColor, blockColor)  V 
-  // methode aanmaken: BlockColor GetAdjacentColor(bool nextcolor, blockColor)
- //methode aanmaken: GetComplementColor(blockColor)
+  // methode aanmaken: BlockColor GetAdjacentColor(bool nextcolor, blockColor) // nog niet echt nodig voorlopig
+ //methode aanmaken: GetComplementColor(blockColor) V
 
   //deze methode gaat de waarde [] van u kleur teruggeven.
   private static int GetIndexByValue(BlockColor bc)    // blockcolor bc = gewoon blockColor.Yellow of red of blue
