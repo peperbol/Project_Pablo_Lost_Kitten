@@ -16,9 +16,9 @@ public class LevelTemplate
   //zal in het programma nooit worden gebruikt
   //enkel door dev's gebruikt om een nieuw level te genereren uit een bitmap(texture2D)
   //in het spel zelf worden de level templated ge deserialized uit een bestand dat vooraf word meegegeven.
-  public LevelTemplate(Texture2D blocksTexture2D, Texture2D spectrum /*, EntityTemplate[] entities*/)
+  public LevelTemplate(Texture2D blocksTexture2D,Texture2D spectrum, EntityTemplate[] entities)
   {
-    // Entities = entities;
+    Entities = entities;
 
     Width = blocksTexture2D.width;
     Height = blocksTexture2D.height;
