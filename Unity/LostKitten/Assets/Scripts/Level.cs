@@ -2,8 +2,6 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using UnityEngine.UI;
 
 public class Level : BlockField
 {
@@ -14,7 +12,13 @@ public class Level : BlockField
   private LevelTemplate template;
 
 
+
   //properties
+  public Block[,] Grid
+  {
+    get { return grid; }
+  }
+
   public int Width {
     get { return grid.GetLength(0); }
   }
@@ -74,7 +78,7 @@ public class Level : BlockField
         grid[x,y] = new Block(x,y,template.Blocks[x,y],worldRoot);
       }
     }
-
+    /*
     //new entities
     entities = new List<Entity>();
 
@@ -108,7 +112,7 @@ public class Level : BlockField
     }
       //aanvullen
 
-    
+    */
   }
 
 }
