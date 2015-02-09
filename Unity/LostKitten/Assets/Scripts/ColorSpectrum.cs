@@ -14,8 +14,8 @@ public static class ColorSpectrum // static zoadat andere klassen enzo er ook aa
     BlockColor.Purple   //5
   };
 
-// methode aanmaken: IsAdjacent (blockColor, blockColor)
-// methode aanmaken: GetAdjacentColor(bool, blockColor)
+// methode aanmaken: bool IsAdjacent (blockColor, blockColor)  V 
+  // methode aanmaken: BlockColor GetAdjacentColor(bool nextcolor, blockColor)
  //methode aanmaken: GetComplementColor(blockColor)
 
   //deze methode gaat de waarde [] van u kleur teruggeven.
@@ -43,6 +43,20 @@ public static class ColorSpectrum // static zoadat andere klassen enzo er ook aa
 
   
   }
-  
+
+  public static BlockColor GetComplementColor(BlockColor color)
+  {
+
+    return spectrum[  // wat hieronder staat, staat binnen u [] en dus geeft dat een complementaire kleur als waarde [] terug  
+      
+     (GetIndexByValue(color)+(spectrum.Length)/2)%spectrum.Length   // u indexwaarde[] + de helft van u spectrum array lengte (6 /2 = 3) niet gewoon 3, want dat is hard coded. om aan u complementaire kleur te komen, en indien u cijfertje te klein is ook nog % nemen om er aan te geraken
+     //  ( [4] blue + 3 )  % 6 =    (4+3)= 7      7%6 = 1 (orange)
+     //  ( [2] yellow + 3 )% 6 =    (2+3)= 5      5%6 = 5 (purple)
+     //  ( [3] green + 3 ) % 6 =    (3+3)= 6      6%6 = 0 (red)
+     ]; 
+
+
+  }
+
 
 }
