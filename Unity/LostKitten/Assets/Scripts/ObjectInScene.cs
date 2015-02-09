@@ -20,6 +20,6 @@ public abstract class ObjectInScene {
     Coordinate = new Coordinates(xPosition, yPosition);
 
     gameObject = (GameObject) GameObject.Instantiate(prefab, Coordinate.GetUnityPosition(), Quaternion.identity);
-    gameObject.transform.SetParent(parent.transform);
+    gameObject.transform.parent = parent.transform;
   }
 }

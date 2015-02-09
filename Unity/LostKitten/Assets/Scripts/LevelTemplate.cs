@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 [Serializable]
@@ -27,7 +26,7 @@ public class LevelTemplate
     //loop door al de pixels
     for (int y = 0; y < Height; y++)
     {
-      for (int x = 0; x < Height; x++)
+      for (int x = 0; x < Width; x++)
       {
         Color currentPixel = blocksTexture2D.GetPixel(x, y);
 
@@ -36,6 +35,7 @@ public class LevelTemplate
         {
           if (currentPixel == spectrum.GetPixel(i, 0))
           {
+            Debug.Log(i);
             Blocks[x, y] = (BlockColor) i;
           }
         }
