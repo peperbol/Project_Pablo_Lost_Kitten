@@ -19,8 +19,8 @@ public abstract class Entity : ObjectInScene, BlockField{
 
   //variabelen
   private EntityType typeOfEntity;//soort entity --> enum, keuze uit player, exit, slider, en lever
-  private Block[,] grid; //2dimensionale array die van de interface Blockfield komt, erft er niet echt van over (is een interface, dat gaat niet) dus die moet hier terugkomen (code wordt niet automatisch hier al in "geplakt" zoals bij het overerven) 
- 
+  private Block[,] grid; //komt van de interface Blockfield, erft er niet echt van over (is een interface, dat gaat niet) dus die moet hier terugkomen (code wordt niet automatisch hier al in "geplakt" zoals bij het overerven) 
+                         //2dimensionaal gridje van zo 1 block waarop de entity staat (de ruimte die hij inneemt)
 
   //property
   public EntityType TypeOfEntity
@@ -50,19 +50,21 @@ public abstract class Entity : ObjectInScene, BlockField{
   }
 
 
-
-
-
-  /*
-  public int Width
+  //de entity gaat zich verplaatsen en heeft dus een nieuwe positie, we werken via de property Coordinate uit ObjectInScene --> krijgt nieuwe coördinaten
+  public Coordinates Position
   {
-    get { return grid.GetLength(0); } //property --> NIET gelinkt aan een variabele. Enkel de lengte van width teruggeven --> in de array gaan kijken [,] eerste dimensie (voor ,) is de width (de x-as)
+    get { return Coordinate; } //geef de waarde van de property Coordinate terug
+
+    set
+    {
+      Coordinate = value; //we geven de property Coordinate een nieuwe waarde (nieuwe plaats van de entity)
+      //nieuwe grid opvragen van de klasse Level via Gamecontroller --> is nog niet klaar
+      //oude blockjes vergeten dat er een entity op zich staat (staat er niet meer op)
+      //nieuwe blockjes (onderdeel van DE block waar hij op staat) leren dat er een entity op zich staat
+    } 
   }
 
-  public int Heigth
-  {
-    get { return grid.GetLength(1); }
-  }*/
+
 
 
 
