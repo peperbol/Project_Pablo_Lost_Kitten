@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Block : ObjectInScene {
   //fields
   private BlockColor color; // kleur van e blok
-  private List<object> entities = new List<object>(); // een lijst van alle entities die zich momenteel op deze blok bevinden // moet nog veranderen
+  private List<Entity> entities = new List<Entity>(); // een lijst van alle entities die zich momenteel op deze blok bevinden // moet nog veranderen
 
   //properties
   public BlockColor Color
@@ -42,9 +42,10 @@ public class Block : ObjectInScene {
     }
   }
 
-  public List<object> Entities // moet nog veranderen
+  public List<Entity> Entities // moet nog veranderen
   {
     get { return entities; }
+
   }
 
   //constructor

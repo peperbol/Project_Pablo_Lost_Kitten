@@ -3,14 +3,17 @@ using System.Collections;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-public static class FileReaderWriter {
+public static class FileReaderWriter
+{
+  private static string levelDirectory = "Levels/";
+  private static string levelExtention = ".dat";
 
   public static LevelTemplate GetLevelTemplate(string levelName)
   {
     LevelTemplate lt;
 
     //lees de file
-    Stream stream = File.Open(levelName+".level", FileMode.Open);
+    FileStream stream = File.Open(Application.persistentDataPath + "/" +levelDirectory + levelName + levelExtention, FileMode.Open);
     //zet om naar obj
     BinaryFormatter bformatter = new BinaryFormatter();
     lt = (LevelTemplate) bformatter.Deserialize(stream);
@@ -18,6 +21,14 @@ public static class FileReaderWriter {
     stream.Close();
 
     return lt;
+  }
+
+  public static void SaveLevelTemplate(string levelName, LevelTemplate levelTemplate )
+  {
+    BinaryFormatter bf = new BinaryFormatter();
+    FileStream stream = File.Create(Application.persistentDataPath + "/" + levelDirectory + levelName + levelExtention);
+    bf.Serialize(stream, levelTemplate);
+    stream.Close();
   }
 
   public static object GetRoadMap(string levelName)
@@ -29,4 +40,6 @@ public static class FileReaderWriter {
   {
     return 0;
   }
+
+  //http://answers.unity3d.com/questions/591545/not-able-to-load-binary-file-through-resourcesload.html?sort=oldest
 }

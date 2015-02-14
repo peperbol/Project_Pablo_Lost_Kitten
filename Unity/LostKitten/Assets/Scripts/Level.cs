@@ -39,6 +39,7 @@ public class Level : BlockField
   //public methods
 
   //geeft een beperkte oppervlakte van de blocks in het level 
+  //zorgt ervoor dat je een bepaald deel van het grid (totaal grid) kunt opvragen, bv coordinaten 4,3 hoogte 5 breedte 7, dan ga je met dat bepaald deel iets nu kunnen doen
   public Block[,] GetPartOfGrid(Coordinates position, int width, int heigth) 
   {
     //check of de opgevraagde area valid is, 
