@@ -64,9 +64,7 @@ public class Level : BlockField
     }
   }
 
-  //private methods
-
-  //bouwt heel het level op vanuit het template
+//bouwt heel het level op vanuit het template
   public void BuildLevel() 
   {
     //new blocks
@@ -79,20 +77,20 @@ public class Level : BlockField
         grid[x,y] = new Block(x,y,template.Blocks[x,y],worldRoot);
       }
     }
-    /*
+    
     //new entities
     entities = new List<Entity>();
 
     foreach (EntityTemplate entityT in template.Entities)
     {
-      Entity newEntity = null;
+      Entity newEntity ;
       switch (entityT.Type)
       {
         case EntityType.Player:
-          newEntity = new Player();
+          newEntity = new Player(entityT.X, entityT.Y, worldRoot);
           break;
         case EntityType.Exit:
-          newEntity = new Exit();
+          newEntity = new Exit(entityT.X, entityT.Y, worldRoot);
           break;
         case EntityType.Slider:
           //aanvullen
@@ -113,7 +111,9 @@ public class Level : BlockField
     }
       //aanvullen
 
-    */
+    
   }
+
+  
 
 }

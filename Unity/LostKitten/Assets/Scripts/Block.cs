@@ -42,11 +42,34 @@ public class Block : ObjectInScene {
     }
   }
 
-  public List<Entity> Entities // moet nog veranderen
+  public bool IsEntityInList(Entity entityToCheck)
   {
-    get { return entities; }
+    bool isInList = false;
 
+    foreach (Entity ent in entities)
+    {
+      isInList |= (ent == entityToCheck);
+    }
+    return isInList;
   }
+
+
+  public void AddEntity(Entity entityToAdd)
+  {
+    if (!IsEntityInList(entityToAdd))
+    {
+      entities.Add(entityToAdd);
+    }
+  }
+
+  public void RemoveEntity(Entity entityToRemove)
+  {
+    if (IsEntityInList(entityToRemove))
+    {
+      entities.Remove(entityToRemove);
+    }
+  }
+
 
   //constructor
   public Block(int xPosition, int yPosition, BlockColor initialColor, GameObject parent)

@@ -7,13 +7,14 @@ public static class FileReaderWriter
 {
   private static string levelDirectory = "Levels/";
   private static string levelExtention = ".dat";
+  private static string readwritefolder = "Assets/readwrite/" ;
 
   public static LevelTemplate GetLevelTemplate(string levelName)
   {
     LevelTemplate lt;
 
     //lees de file
-    FileStream stream = File.Open(Application.persistentDataPath + "/" +levelDirectory + levelName + levelExtention, FileMode.Open);
+    FileStream stream = File.Open(readwritefolder + levelDirectory + levelName + levelExtention, FileMode.Open);
     //zet om naar obj
     BinaryFormatter bformatter = new BinaryFormatter();
     lt = (LevelTemplate) bformatter.Deserialize(stream);
@@ -26,7 +27,7 @@ public static class FileReaderWriter
   public static void SaveLevelTemplate(string levelName, LevelTemplate levelTemplate )
   {
     BinaryFormatter bf = new BinaryFormatter();
-    FileStream stream = File.Create(Application.persistentDataPath + "/" + levelDirectory + levelName + levelExtention);
+    FileStream stream = File.Create(readwritefolder + levelDirectory + levelName + levelExtention);
     bf.Serialize(stream, levelTemplate);
     stream.Close();
   }

@@ -54,11 +54,24 @@ public class Timer : MonoBehaviour {
 		}
 	}
 
-  int GetSecondsPerMinute();
+  //'k heb ff deze methods zo gezet, anders kon 'k ni runnen - Pepijn
+  private int GetSecondsPerMinute()
+  {
+    return 0;
+  }
 
-  int GetMinutes();
 
-  int GetTotalSeconds();
+  private int GetMinutes()
+  {
+    return 0;
+  }
+
+
+  private int GetTotalSeconds()
+  {
+    return 0;
+  }
+
 
 
 }

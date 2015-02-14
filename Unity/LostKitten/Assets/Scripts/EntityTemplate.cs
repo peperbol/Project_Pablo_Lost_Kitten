@@ -1,6 +1,8 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using System.Security.Cryptography.X509Certificates;
+
 [Serializable]
 public class EntityTemplate
 {
@@ -8,4 +10,11 @@ public class EntityTemplate
   public int X;
   public int Y;
   public EntityType Type;
+  //constructor
+  public EntityTemplate(int x, int y, EntityType type)
+  {
+    X = x;
+    Y = y;
+    Type = type;
+  }
 }
