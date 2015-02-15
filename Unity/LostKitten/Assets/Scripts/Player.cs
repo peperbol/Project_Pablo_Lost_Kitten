@@ -68,46 +68,44 @@ public class Player : Entity
 
 
 
-
-
   //methoden
-
 
 
   //als de kleuren overeen komen mag hij bewegen in de richting die hij wilt, als ze niet overeen komen gaat hij niks doen
   //heeft coordinaten overgekregen van entity die die heeft van object in scene (overerving), gaat nu gaan checken welke kleuren er "voor" de player liggen (halve block) en beslissen of hij daarop mag staan
+  
   public void Move(Direction direction) 
   {
 
     //lokale variabelen
-    Coordinates newPosition;
+    Coordinates PositionPlayerSpacePlusMoveSpace;
     int widthPlayerSpacePlusMoveSpace, heightPlayerSpacePlusMoveSpace; // int height staat er eigenlijk ook, zijn de hoogtes en breedtes van de ruimte die de player inneemt PLUS de ruimte (die 2 blockjes) waar hij naartoe gaat gaan
 
-    newPosition = Position; //position property van entity om de oude positie weer te geven (kan ook met de set een nieuwe positie meegeven maar dat gaan we nu niet doen)
+    //voorlopig hebben deze variabelen nog deze waardes, de oude positie, en de oude hoogte en breedte
+    PositionPlayerSpacePlusMoveSpace = Position; //position property van entity om de oude positie weer te geven (kan ook met de set een nieuwe positie meegeven maar dat gaan we nu niet doen)
     widthPlayerSpacePlusMoveSpace = Width;   //properties van entity, hoeveel ruimte de player inneemt
     heightPlayerSpacePlusMoveSpace = Height;
 
 
 
-    
 
-    //hier gaan we een nieuw gebied selecteerbaar maken, namelijk de ruimte die de speler inneemt + de ruimte waar hij mogelijkst naartoe kan
+    //hier gaan we een nieuw gebied selecteerbaar maken, namelijk de ruimte die de speler inneemt EN de ruimte waar hij mogelijk naartoe kan
 
-    switch (direction) //Als de direction (parameter van de methode) gelijk is aan..
+    switch (direction) //Als de direction (parameter die je meegeeft bij het oproepen van de methode) gelijk is aan..
       {
         case Direction.Up://up gaat hij..
           heightPlayerSpacePlusMoveSpace += 1; //hoogte van ruimte die de speler inneemt + 1 blockje vanboven selecteren --> hoogte is dan bv 3 ipv. 2 (2 is dan Width, originele hoogte van ruimte die speler inneemt = de originele waarde van heightPlayerSpacePlusMoveSpace) (block waar player op staat --> 4 blockjes, 2 hoog, 2 breed)
-          newPosition.YPosition -= 1; //veranderen de oude positie (altijd in de linkerbovenhoek van onze Block) -1 aangezien hoe hoger je in ons grid zit, hoe lager het getal van je positie bv 1tje naar boven --> van y positie 4 naar 3 bv. Positie van ons nieuw geselecteerd gebied ligt 1 tje hoger dan enkel de ruimte waar de speler zich bevind
+          PositionPlayerSpacePlusMoveSpace.YPosition -= 1; //veranderen de oude positie (altijd in de linkerbovenhoek van onze Block) -1 aangezien hoe hoger je in ons grid zit, hoe lager het getal van je positie bv 1tje naar boven --> van y positie 4 naar 3 bv. Positie van ons nieuw geselecteerd gebied ligt 1 tje hoger dan enkel de ruimte waar de speler zich bevind
           break;
 
-        case Direction.Down://down gaat hij..
+        case Direction.Down:
           heightPlayerSpacePlusMoveSpace += 1; //hoogte gaat hier ook 3 zijn want het is nu gwn de ruimte die de speler inneemt + 1 blockje vanonder
           //hier verandert je position niet, aangezien de positie nog altijd in de linkerbovenhoek zit van ons groot veld dat we nu beschikbaar stellen
           break;
 
         case Direction.Left:
           widthPlayerSpacePlusMoveSpace += 1; //breedte neemt ook met 1 toe, ruimte van player + 1 blockje aan de linkerkant
-          newPosition.XPosition -= 1; //veranderen de oude positie -1 aangezien hoe meer naar links je in ons grid zit, hoe lager het getal van je positie bv 1tje naar links --> van x positie 4 naar 3 bv. Positie van ons nieuw geselecteerd gebied ligt 1 tje meer naar links dan enkel de ruimte waar de speler zich bevind
+          PositionPlayerSpacePlusMoveSpace.XPosition -= 1; //veranderen de oude positie -1 aangezien hoe meer naar links je in ons grid zit, hoe lager het getal van je positie bv 1tje naar links --> van x positie 4 naar 3 bv. Positie van ons nieuw geselecteerd gebied ligt 1 tje meer naar links dan enkel de ruimte waar de speler zich bevind
           break;
          
         case Direction.Right:
@@ -118,41 +116,111 @@ public class Player : Entity
       }
 
 
+    // 4 dingen checken: of hij vanboven, vanonder, links of rechts niet uit het grid valt (geen blockjes meer zijn, aan de rand van je grid zit)
+    if (PositionPlayerSpacePlusMoveSpace.YPosition < 0 || //vanboven uit grid
+        PositionPlayerSpacePlusMoveSpace.XPosition < 0 || //links uit grid
+        PositionPlayerSpacePlusMoveSpace.YPosition + heightPlayerSpacePlusMoveSpace -1 >= Gamecontroller.CurrentLevel.Height || //vanonder uit grid, positie plus hoogte van (bv positie 5 (y coordinaat) + 3 hoog = 8 - 1 (omdat je het deel van het grid waar je naar gaat moven ook meetelt) = 7 (eindigt op coördinaat 7, als je grid maar 7 blokjes hoog is (index 6 is het laatste mogelijke lijntje waar hij dan op mag staan) --> valt hij uit grid, mag niet  
+        PositionPlayerSpacePlusMoveSpace.XPosition + widthPlayerSpacePlusMoveSpace -1 >= Gamecontroller.CurrentLevel.Width) //rechts uit grid
+    {
+
+      return; //kheb een resultaat denkt hij, stopt met de methode move --> gaat niet moven 
+
+    }
+
 
     //nieuwe variabelen aanmaken 2d array van blocks --> met methode GetPartOfGrid van level gaan we van het deel dat we nu net geselecteerd hebben,ook echt een gridje op zich maken
-    Block[,] gridPlayerSpaceMoveSpace = new Block[1,1]; //voorlopig random 1,1
-
-
+    Block[,] gridPlayerSpaceMoveSpace = Gamecontroller.CurrentLevel.GetPartOfGrid(PositionPlayerSpacePlusMoveSpace,
+                                                                                  widthPlayerSpacePlusMoveSpace, 
+                                                                                  heightPlayerSpacePlusMoveSpace);
 
 
     //Lijstje om alle kleuren die we uit ons gridje gaan halen gaan verzamelen
     List <BlockColor> listColors = new List<BlockColor>(); 
     
 
+
     //we gaan nu alle blockjes in ons nieuw gridje doorlopen (nog es, dat is het gebied waar de entity op staat EN waar hij naartoe wilt)
     for (int y = 0; y < gridPlayerSpaceMoveSpace.GetLength(1); y++) //y-coördinaten doorlopen, u y-coordinaat moet kleiner zijn dan hoe groot u gridje is in de hoogte
     {
 
+
+      //hier moet niks staan want je gaat alle blockjes al overlopen door alle x'en af te gaan
+
       for (int x = 0; x < gridPlayerSpaceMoveSpace.GetLength(0); x++) //x-coördinaten doorlopen, u x-coordinaat moet kleiner zijn dan hoe groot u gridje is in de breedte
       {
 
-        BlockColor colorOfBlock = gridPlayerSpaceMoveSpace[x, y].Color; //Color = property van Block, in nieuwe variabele gestoken om het korter te kunnen schrijven
-        bool isAlreadyAdded = false;
+        BlockColor colorOfBlock = gridPlayerSpaceMoveSpace[x, y].Color; //De kleur van een bepaalde block (met coördinaten x en y) Color = property van Block, in nieuwe variabele gestoken om het korter te kunnen schrijven
+        
+        bool isAlreadyAdded = false; //voorlopig op false zetten 
 
-        //foreach (var VARIABLE in COLLECTION)
+
+
+        foreach (BlockColor tempVar in listColors) //listColors kunnen er al mogelijk kleuren inzitten, we willen niet 2 keer dezelfde kleur erin hebben zitten dus gaan nu checken welke kleuren er al in zitten in listColors
         {
+          if (tempVar == colorOfBlock) //gaan alle kleuren die er al in zitten vergelijken met de kleur van ons blockje dat we aan het checken zijn
+          {
+            isAlreadyAdded = true; //als die eraan gelijk is (zit er al in dus en willen we niet nog een keer erin), dan zetten we deze op true
+          }
           
+        }//einde foreach
+
+
+
+        if (!isAlreadyAdded)//enkel als het nog niet geadd is (er nog niet in zit) 
+        {
+          listColors.Add(colorOfBlock);// gaan we hem toevoegen aan de listColors lijst (in de lijst zitten dus de kleuren waar hij op staat en waar hij op wilt gaan staan) 
         }
 
-      }
 
-    }
+      }//einde for x
 
-    //if () {}    
-    
-    //(else {} als de kleuren niet overeen komen gaat hij gwn die kant niet uitkunnen, gebeurt er dus niks --> dus else is niet nodig)
+    }//einde for y
+
+
+
+
+
+
+    if (listColors.Count == 1 ||  //als er maar 1 kleur in zit (de kleur waar hij op staat is hetzelfde als de kleur waar hij naartoe wilt)
+      (listColors.Count == 2  &&  ColorSpectrum.IsAdjacent(listColors[0], listColors[1]))) //kleur waar hij op staat is anders dan de kleur waar hij naartoe wilt, gaat dan checken of ze adjacent zijn
+    {
+      
+      //als die voorwaarden voldaan worden mag hij ook effectief zich gaan verplaatsen naar waar hij wilt  --> position aan gaan passen
+
+      Coordinates newPosition = Position;
+
+      switch (direction)
+      {
+        case Direction.Up:
+          newPosition.YPosition -= 1; //positie gaat 1tje naar boven --> boven is -
+          break;
+
+        case Direction.Down:
+          newPosition.YPosition += 1;
+          break;
+
+        case Direction.Left:
+          newPosition.XPosition -= 1;//positie gaat 1tje naar links --> links is -
+          break;
+        
+        case Direction.Right:
+          newPosition.XPosition += 1;
+          
+          break;
+
+      }//einde switch
+
+
+      Position = newPosition; //nieuwe positie in de oude gestoken. (is vervangen nu)
+
+
+
+    }//einde if voor de move te bepalen
+
 
   }//einde move
+
+
 
 
 }//einde klasse

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class testscript : MonoBehaviour
 {
-  private Level level;
+
 	// Use this for initialization
 	void Start () {
 
@@ -24,7 +24,7 @@ public class testscript : MonoBehaviour
      */
      
 
-    level = new Level(FileReaderWriter.GetLevelTemplate("01")) ;
+    Gamecontroller.CurrentLevel = new Level(FileReaderWriter.GetLevelTemplate("01")) ;
 	}
 	
 	// Update is called once per frame

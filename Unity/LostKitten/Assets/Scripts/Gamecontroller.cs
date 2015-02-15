@@ -9,7 +9,7 @@ GameOver --> methode, aangeroepen verloren hebt of gewonnen*/
 public static class Gamecontroller
 {
   
-  /*
+  
     
   //private variabelen
   private static Level currentLevel;
@@ -30,7 +30,7 @@ public static class Gamecontroller
 
 
 
-  public static Level Player
+  public static Player PlayerInGame
   {
     get { return player; }
     set { player = value; }
@@ -38,14 +38,14 @@ public static class Gamecontroller
 
 
   
-  public static Timer timer;
+  public static Timer CurrentTimer
   {
     get { return timer; }
     set { timer = value;}
   }
 
 
-  public static bool inGame;
+  public static bool InGame
   {
     get { return inGame; }
     set { inGame = value;}
@@ -59,5 +59,5 @@ public static class Gamecontroller
     
   }
 
-  */
+  
 }//einde klasse

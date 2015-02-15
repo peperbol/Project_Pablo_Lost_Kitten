@@ -37,8 +37,14 @@ public class Exit : Entity {
   
   //methodes
   //wat moet er gebeuren als de player in contact komt met de deur --> over gaan naar het scherm met het overzicht van de levels op
-  public override void CollideEnter(EntityType entity)
+  public override void CollideEnter(Entity entity)
   {
+
+    if (entity is Player)
+    {
+      Gamecontroller.GameOver(true);//bool won = true
+    }
+
 
   }
 
