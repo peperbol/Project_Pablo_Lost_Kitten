@@ -93,10 +93,14 @@ public class Level : BlockField
           newEntity = new Exit(entityT.X, entityT.Y, worldRoot);
           break;
         case EntityType.Slider:
-          //aanvullen
+          newEntity = null; //nog verder aanvullen
           break;
         case EntityType.Button:
-          //aanvullen
+          newEntity = null; //nog verder aanvullen
+          break;
+        default:
+          Debug.Log("Fout: EntityType is onbekend.");
+          newEntity = null;
           break;
       }
 

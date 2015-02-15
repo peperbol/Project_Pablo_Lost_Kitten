@@ -6,6 +6,7 @@ public class Block : ObjectInScene {
   //fields
   private BlockColor color; // kleur van e blok
   private List<Entity> entities = new List<Entity>(); // een lijst van alle entities die zich momenteel op deze blok bevinden // moet nog veranderen
+  
 
   //properties
   public BlockColor Color
@@ -58,7 +59,13 @@ public class Block : ObjectInScene {
   {
     if (!IsEntityInList(entityToAdd))
     {
+      
+        foreach (Entity entInList in entities)
+        {
+          entInList.CollideEnter(entityToAdd);
+        }
       entities.Add(entityToAdd);
+      
     }
   }
 
@@ -66,6 +73,10 @@ public class Block : ObjectInScene {
   {
     if (IsEntityInList(entityToRemove))
     {
+        foreach (Entity entInList in entities)
+        {
+          entInList.CollideLeave(entityToRemove);
+        }
       entities.Remove(entityToRemove);
     }
   }
