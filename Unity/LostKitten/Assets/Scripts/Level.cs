@@ -43,7 +43,7 @@ public class Level : BlockField
   public Block[,] GetPartOfGrid(Coordinates position, int width, int heigth) 
   {
     //check of de opgevraagde area valid is, 
-    if (position.XPosition + width <= Width && position.YPosition + heigth <= Height)
+    if (position.XPosition + width -1 <= Width && position.YPosition + heigth -1 <= Height)
     {
       Block[,] part = new Block[width, heigth];
       //kopieer de blocks

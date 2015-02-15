@@ -67,6 +67,7 @@ public abstract class Entity : ObjectInScene, BlockField{
     {
       Coordinate = value; //we geven de property Coordinate een nieuwe waarde (nieuwe plaats van de entity)
 
+      Debug.Log("x: " + Coordinate.XPosition + " y: " + Coordinate.YPosition + " Width: " + Width + " Height: " + Height);
 
       //nieuwe grid maken met de methode GetPartOfGrid, met de nieuwe Coördinaten, de breedte en hoogte (als hij zich verplaatst heeft -> nieuwe positie, nieuw deeltje van grid waar we mee werken)
       Block[,] newBlocksGrid = Gamecontroller.CurrentLevel.GetPartOfGrid(Coordinate, Width, Height); 
