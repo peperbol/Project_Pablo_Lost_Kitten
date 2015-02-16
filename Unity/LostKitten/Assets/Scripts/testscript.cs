@@ -24,7 +24,7 @@ public class testscript : MonoBehaviour
      */
      
 
-    Gamecontroller.CurrentLevel = new Level(FileReaderWriter.GetLevelTemplate("01")) ;
+    new Level(FileReaderWriter.GetLevelTemplate("01")) ;
 	}
 	
 	// Update is called once per frame

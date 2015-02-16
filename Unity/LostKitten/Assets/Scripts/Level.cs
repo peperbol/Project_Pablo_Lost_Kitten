@@ -30,9 +30,11 @@ public class Level : BlockField
   //Constuctor
   public Level (LevelTemplate levelTemplate)
   {
+    Gamecontroller.CurrentLevel = this;
     worldRoot = GameObject.FindWithTag("WorldRoot");
     template = levelTemplate;
     BuildLevel();
+    SetCameraPosition();
   }
 
 
@@ -67,6 +69,13 @@ public class Level : BlockField
 //bouwt heel het level op vanuit het template
   public void BuildLevel() 
   {
+    //remove all old children
+    for (int i = 0; i < worldRoot.transform.childCount; i++)
+    {
+      GameObject.Destroy(worldRoot.transform.GetChild(i));
+      
+    }
+
     //new blocks
     grid = new Block[template.Width,template.Height];
 
@@ -113,11 +122,16 @@ public class Level : BlockField
         Debug.Log("FOUT: entity is niet geinitializeerd.");
       }
     }
-      //aanvullen
 
     
   }
 
-  
+  public void SetCameraPosition()
+  {
+    Camera.main.transform.position = new Vector3(Width / 2f, - Height / 2f, Camera.main.transform.position.z);
+    Camera.main.orthographicSize = Height / 2f;
+  }
+
+
 
 }
