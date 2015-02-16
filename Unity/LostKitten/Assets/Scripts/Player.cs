@@ -19,7 +19,9 @@ public class Player : Entity
     : base((GameObject)Resources.Load("Prefabs/Player", typeof(GameObject)), xPosition, yPosition, parent) //we gaan naar de Unity vaste klasse Resources --> daaruit gaan we een bestand laden in het script, we gaan naar de map Prefabs en nemen daar het bestand Player uit en het is een Gameobject, we gaan het geheel ook omzetten naar ene Gameobject aangezien als je iets laad op deze manier het een object gaat teruggeven en niet een GAMEobject
   {
     //neemt hierin over wat er in de constructor staat van entity
+    Gamecontroller.PlayerInGame = this; // dit is de player van gamecontroller aangeven
   }
+
   
   
 
