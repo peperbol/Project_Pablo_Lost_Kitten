@@ -19,7 +19,6 @@ public class InputController : MonoBehaviour
     
       float moveHorizontal = Input.GetAxis("Horizontal");  // waarde tussen -1 en 1    bv: 0.4 naar links
       float moveVertical = Input.GetAxis("Vertical");
-      Debug.Log(moveVertical + " " + moveHorizontal);
 
 
         if (Mathf.Abs(moveHorizontal) > trigger) // dus als je 0.4 naar links gaat, dan ga je nog niet naar links, maar vanaf je move horizontal groter is dan 0.5 gaat hij naar links bewegen
