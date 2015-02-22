@@ -56,14 +56,14 @@ public class Player : Entity
   //geen abstract meer voor de breedte en hoogte die onze player inneemt --> gaan nu !!eindelijk!! een waarde krijgen --> initialiseren, readonly want het gaat sowieso 8 zijn de waarde (gaan het niet kunnen veranderen)
   public override int Width //override omdat het in entity abstract is 
   {
-    get { return 8; } //krijgt de waarde 8 mee 
+    get { return 4; } //krijgt de waarde 8 mee 
   }
 
 
 
   public override int Height
   {
-    get { return 8; } //krijgt de waarde 8 mee 
+    get { return 4; } //krijgt de waarde 8 mee 
   }
 
 
@@ -124,7 +124,8 @@ public class Player : Entity
         PositionPlayerSpacePlusMoveSpace.YPosition + heightPlayerSpacePlusMoveSpace -1 >= Gamecontroller.CurrentLevel.Height || //vanonder uit grid, positie plus hoogte van (bv positie 5 (y coordinaat) + 3 hoog = 8 - 1 (omdat je het deel van het grid waar je naar gaat moven ook meetelt) = 7 (eindigt op coördinaat 7, als je grid maar 7 blokjes hoog is (index 6 is het laatste mogelijke lijntje waar hij dan op mag staan) --> valt hij uit grid, mag niet  
         PositionPlayerSpacePlusMoveSpace.XPosition + widthPlayerSpacePlusMoveSpace -1 >= Gamecontroller.CurrentLevel.Width) //rechts uit grid
     {
-
+      
+      
       return; //kheb een resultaat denkt hij, stopt met de methode move --> gaat niet moven 
 
     }
@@ -140,18 +141,13 @@ public class Player : Entity
     List <BlockColor> listColors = new List<BlockColor>(); 
     
 
-
+   
     //we gaan nu alle blockjes in ons nieuw gridje doorlopen (nog es, dat is het gebied waar de entity op staat EN waar hij naartoe wilt)
-    for (int y = 0; y < gridPlayerSpaceMoveSpace.GetLength(1); y++) //y-coördinaten doorlopen, u y-coordinaat moet kleiner zijn dan hoe groot u gridje is in de hoogte
+    foreach (Block tempBlock in gridPlayerSpaceMoveSpace)
     {
+      
 
-
-      //hier moet niks staan want je gaat alle blockjes al overlopen door alle x'en af te gaan
-
-      for (int x = 0; x < gridPlayerSpaceMoveSpace.GetLength(0); x++) //x-coördinaten doorlopen, u x-coordinaat moet kleiner zijn dan hoe groot u gridje is in de breedte
-      {
-
-        BlockColor colorOfBlock = gridPlayerSpaceMoveSpace[x, y].Color; //De kleur van een bepaalde block (met coördinaten x en y) Color = property van Block, in nieuwe variabele gestoken om het korter te kunnen schrijven
+        BlockColor colorOfBlock = tempBlock.Color; //De kleur van een bepaalde block (met coördinaten x en y) Color = property van Block, in nieuwe variabele gestoken om het korter te kunnen schrijven
         
         bool isAlreadyAdded = false; //voorlopig op false zetten 
 
@@ -171,12 +167,12 @@ public class Player : Entity
         if (!isAlreadyAdded)//enkel als het nog niet geadd is (er nog niet in zit) 
         {
           listColors.Add(colorOfBlock);// gaan we hem toevoegen aan de listColors lijst (in de lijst zitten dus de kleuren waar hij op staat en waar hij op wilt gaan staan) 
+        
         }
 
 
-      }//einde for x
 
-    }//einde for y
+    }//einde foreach
 
 
 
@@ -187,9 +183,10 @@ public class Player : Entity
       (listColors.Count == 2  &&  ColorSpectrum.IsAdjacent(listColors[0], listColors[1]))) //kleur waar hij op staat is anders dan de kleur waar hij naartoe wilt, gaat dan checken of ze adjacent zijn
     {
       
+
       //als die voorwaarden voldaan worden mag hij ook effectief zich gaan verplaatsen naar waar hij wilt  --> position aan gaan passen
 
-      Coordinates newPosition = Position;
+      Coordinates newPosition = Position; //de momentele positie hier al in steken (voorlopig)
 
       switch (direction)
       {
@@ -214,7 +211,7 @@ public class Player : Entity
 
 
       Position = newPosition; //nieuwe positie in de oude gestoken. (is vervangen nu)
-
+     
 
 
     }//einde if voor de move te bepalen

@@ -35,6 +35,11 @@ public class Coordinates {
     }
   }
 
+  public Coordinates Copy
+  {
+    get { return new Coordinates(XPosition,YPosition);}
+  }
+
   // constructors
   public Coordinates(int x, int y) {
     XPosition = x;

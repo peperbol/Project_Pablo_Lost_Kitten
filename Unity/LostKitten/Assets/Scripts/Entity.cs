@@ -65,6 +65,8 @@ public abstract class Entity : ObjectInScene, BlockField{
 
     set
     {
+
+      
       Coordinate = value; //we geven de property Coordinate een nieuwe waarde (nieuwe plaats van de entity)
 
 

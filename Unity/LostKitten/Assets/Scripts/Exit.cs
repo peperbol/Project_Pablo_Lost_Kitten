@@ -23,14 +23,14 @@ public class Exit : Entity {
   //properties
   public override int Width
   {
-    get { return 8; } //krijgt de waarde 8 mee (toevallig hetzelfde als player maar we kunnen die een andere waarde mee geven ook)
+    get { return 4; } //krijgt de waarde 8 mee (toevallig hetzelfde als player maar we kunnen die een andere waarde mee geven ook)
   }
 
 
 
   public override int Height
   {
-    get { return 8; } //krijgt de waarde 8 mee 
+    get { return 4; } //krijgt de waarde 8 mee 
   }
 
 

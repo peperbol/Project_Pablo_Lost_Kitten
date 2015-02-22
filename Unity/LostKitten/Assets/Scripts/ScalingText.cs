@@ -10,7 +10,7 @@ public class ScalingText : MonoBehaviour
   public float maxYScale;
 
 	// Use this for initialization
-	void Update ()
+	void Start ()
 	{
     float arImage = (float) parent.mainTexture.width / parent.mainTexture.height;
 	  float arCanvas = parent.rectTransform.rect.width/parent.rectTransform.rect.height;

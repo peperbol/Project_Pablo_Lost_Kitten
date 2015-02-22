@@ -53,7 +53,7 @@ public class Level : BlockField
       {
         for (int x = 0; x < width; x++)
         {
-          part[x, y] = grid[position.XPosition + x, position.YPosition + y];
+          part[x, y] = grid[position.XPosition + x , position.YPosition + y];
         }
       }
       return part;

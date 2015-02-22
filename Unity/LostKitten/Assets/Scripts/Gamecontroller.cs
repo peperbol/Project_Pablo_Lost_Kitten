@@ -56,7 +56,16 @@ public static class Gamecontroller
 //methoden
   public static void GameOver(bool won)
   {
-    
+    Debug.Log(won);
+    if (won)
+    {
+     Application.Quit();
+    }
+
+    else
+    {
+      Application.LoadLevel(Application.loadedLevelName);
+    }
   }
 
   

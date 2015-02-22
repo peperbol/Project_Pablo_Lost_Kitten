@@ -26,12 +26,10 @@ public class InputController : MonoBehaviour
           if (moveHorizontal > 0)
           {
             Gamecontroller.PlayerInGame.Move(Direction.Right);
-            Debug.Log("Loop rechts");
           }
           else
           {
             Gamecontroller.PlayerInGame.Move(Direction.Left); 
-            Debug.Log("Loop links");
           }
         }
         if (Mathf.Abs(moveVertical) > trigger)//dus als je 0.4 naar boven/onder gaat, gaat het niet mogen, mintsens 0.5 om te bewegen
@@ -39,12 +37,10 @@ public class InputController : MonoBehaviour
           if (moveVertical > 0)
           {
             Gamecontroller.PlayerInGame.Move(Direction.Up);
-            Debug.Log("Loop boven");
           }
           else
           {
             Gamecontroller.PlayerInGame.Move(Direction.Down);
-            Debug.Log("Loop onder");
           }
         }
 
