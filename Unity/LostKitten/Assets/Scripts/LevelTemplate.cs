@@ -35,7 +35,6 @@ public class LevelTemplate
         {
           if (currentPixel == spectrum.GetPixel(i, 0))
           {
-            Debug.Log(i);
             Blocks[x, y] = (BlockColor) i;
           }
         }

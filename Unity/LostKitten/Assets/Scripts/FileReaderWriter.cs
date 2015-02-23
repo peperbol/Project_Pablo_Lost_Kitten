@@ -31,7 +31,7 @@ public static class FileReaderWriter
   public static void SaveLevelTemplate(string levelName, LevelTemplate levelTemplate )
   {
     BinaryFormatter bf = new BinaryFormatter();
-    FileStream stream = File.Create(readwritefolder + slash + levelDirectory + levelName + levelExtention);
+    FileStream stream = File.Create(Application.streamingAssetsPath + slash + levelDirectory + levelName + levelExtention);
     bf.Serialize(stream, levelTemplate);
     stream.Close();
   }

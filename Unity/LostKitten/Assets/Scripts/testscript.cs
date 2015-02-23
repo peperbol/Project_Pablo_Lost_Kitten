@@ -7,7 +7,7 @@ public class testscript : MonoBehaviour
 	// Use this for initialization
 	void Start () {
 
-    
+    /*
       FileReaderWriter.SaveLevelTemplate(
          "01", //naam
          new LevelTemplate(
@@ -21,6 +21,7 @@ public class testscript : MonoBehaviour
 	            }
          )
        );
+     */
      /*
     
     FileReaderWriter.SaveLevelTemplate(
