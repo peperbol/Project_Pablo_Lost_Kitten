@@ -80,16 +80,16 @@ public class Player : Entity
   {
 
     //lokale variabelen
-    Coordinates PositionPlayerSpacePlusMoveSpace;
+    Coordinates positionPlayerSpacePlusMoveSpace;
     int widthPlayerSpacePlusMoveSpace, heightPlayerSpacePlusMoveSpace; // int height staat er eigenlijk ook, zijn de hoogtes en breedtes van de ruimte die de player inneemt PLUS de ruimte (die 2 blockjes) waar hij naartoe gaat gaan
 
     //voorlopig hebben deze variabelen nog deze waardes, de oude positie, en de oude hoogte en breedte
-    PositionPlayerSpacePlusMoveSpace = Position; //position property van entity om de oude positie weer te geven (kan ook met de set een nieuwe positie meegeven maar dat gaan we nu niet doen)
+    positionPlayerSpacePlusMoveSpace = Position; //position property van entity om de oude positie weer te geven (kan ook met de set een nieuwe positie meegeven maar dat gaan we nu niet doen)
     widthPlayerSpacePlusMoveSpace = Width;   //properties van entity, hoeveel ruimte de player inneemt
     heightPlayerSpacePlusMoveSpace = Height;
 
 
-
+    
 
     //hier gaan we een nieuw gebied selecteerbaar maken, namelijk de ruimte die de speler inneemt EN de ruimte waar hij mogelijk naartoe kan
 
@@ -97,7 +97,7 @@ public class Player : Entity
       {
         case Direction.Up://up gaat hij..
           heightPlayerSpacePlusMoveSpace += 1; //hoogte van ruimte die de speler inneemt + 1 blockje vanboven selecteren --> hoogte is dan bv 3 ipv. 2 (2 is dan Width, originele hoogte van ruimte die speler inneemt = de originele waarde van heightPlayerSpacePlusMoveSpace) (block waar player op staat --> 4 blockjes, 2 hoog, 2 breed)
-          PositionPlayerSpacePlusMoveSpace.YPosition -= 1; //veranderen de oude positie (altijd in de linkerbovenhoek van onze Block) -1 aangezien hoe hoger je in ons grid zit, hoe lager het getal van je positie bv 1tje naar boven --> van y positie 4 naar 3 bv. Positie van ons nieuw geselecteerd gebied ligt 1 tje hoger dan enkel de ruimte waar de speler zich bevind
+          positionPlayerSpacePlusMoveSpace.YPosition -= 1; //veranderen de oude positie (altijd in de linkerbovenhoek van onze Block) -1 aangezien hoe hoger je in ons grid zit, hoe lager het getal van je positie bv 1tje naar boven --> van y positie 4 naar 3 bv. Positie van ons nieuw geselecteerd gebied ligt 1 tje hoger dan enkel de ruimte waar de speler zich bevind
           break;
 
         case Direction.Down:
@@ -107,7 +107,7 @@ public class Player : Entity
 
         case Direction.Left:
           widthPlayerSpacePlusMoveSpace += 1; //breedte neemt ook met 1 toe, ruimte van player + 1 blockje aan de linkerkant
-          PositionPlayerSpacePlusMoveSpace.XPosition -= 1; //veranderen de oude positie -1 aangezien hoe meer naar links je in ons grid zit, hoe lager het getal van je positie bv 1tje naar links --> van x positie 4 naar 3 bv. Positie van ons nieuw geselecteerd gebied ligt 1 tje meer naar links dan enkel de ruimte waar de speler zich bevind
+          positionPlayerSpacePlusMoveSpace.XPosition -= 1; //veranderen de oude positie -1 aangezien hoe meer naar links je in ons grid zit, hoe lager het getal van je positie bv 1tje naar links --> van x positie 4 naar 3 bv. Positie van ons nieuw geselecteerd gebied ligt 1 tje meer naar links dan enkel de ruimte waar de speler zich bevind
           break;
          
         case Direction.Right:
@@ -119,10 +119,10 @@ public class Player : Entity
 
 
     // 4 dingen checken: of hij vanboven, vanonder, links of rechts niet uit het grid valt (geen blockjes meer zijn, aan de rand van je grid zit)
-    if (PositionPlayerSpacePlusMoveSpace.YPosition < 0 || //vanboven uit grid
-        PositionPlayerSpacePlusMoveSpace.XPosition < 0 || //links uit grid
-        PositionPlayerSpacePlusMoveSpace.YPosition + heightPlayerSpacePlusMoveSpace -1 >= Gamecontroller.CurrentLevel.Height || //vanonder uit grid, positie plus hoogte van (bv positie 5 (y coordinaat) + 3 hoog = 8 - 1 (omdat je het deel van het grid waar je naar gaat moven ook meetelt) = 7 (eindigt op coördinaat 7, als je grid maar 7 blokjes hoog is (index 6 is het laatste mogelijke lijntje waar hij dan op mag staan) --> valt hij uit grid, mag niet  
-        PositionPlayerSpacePlusMoveSpace.XPosition + widthPlayerSpacePlusMoveSpace -1 >= Gamecontroller.CurrentLevel.Width) //rechts uit grid
+    if (positionPlayerSpacePlusMoveSpace.YPosition < 0 || //vanboven uit grid
+        positionPlayerSpacePlusMoveSpace.XPosition < 0 || //links uit grid
+        positionPlayerSpacePlusMoveSpace.YPosition + heightPlayerSpacePlusMoveSpace -1 >= Gamecontroller.CurrentLevel.Height || //vanonder uit grid, positie plus hoogte van (bv positie 5 (y coordinaat) + 3 hoog = 8 - 1 (omdat je het deel van het grid waar je naar gaat moven ook meetelt) = 7 (eindigt op coördinaat 7, als je grid maar 7 blokjes hoog is (index 6 is het laatste mogelijke lijntje waar hij dan op mag staan) --> valt hij uit grid, mag niet  
+        positionPlayerSpacePlusMoveSpace.XPosition + widthPlayerSpacePlusMoveSpace -1 >= Gamecontroller.CurrentLevel.Width) //rechts uit grid
     {
       
       
@@ -132,7 +132,7 @@ public class Player : Entity
 
 
     //nieuwe variabelen aanmaken 2d array van blocks --> met methode GetPartOfGrid van level gaan we van het deel dat we nu net geselecteerd hebben,ook echt een gridje op zich maken
-    Block[,] gridPlayerSpaceMoveSpace = Gamecontroller.CurrentLevel.GetPartOfGrid(PositionPlayerSpacePlusMoveSpace,
+    Block[,] gridPlayerSpaceMoveSpace = Gamecontroller.CurrentLevel.GetPartOfGrid(positionPlayerSpacePlusMoveSpace,
                                                                                   widthPlayerSpacePlusMoveSpace, 
                                                                                   heightPlayerSpacePlusMoveSpace);
 
@@ -218,6 +218,51 @@ public class Player : Entity
 
 
   }//einde move
+
+
+
+
+
+
+
+  public void CheckForActivables()// om de player een lever of slider te laten activeren (algemeen, om EEN activatable te activeren)
+  {
+    
+    
+    //gaan terug het gridje waar hij opstaat selecteren en overlopen om te zien of er een activatable op staat. Dan kunnen we die ook activeren. 
+    Coordinates positionPlayerSpace = Position; //niet meer plus moveSpace nu want we gaan enkel de ruimte die hij inneemt checken.
+    int widthPlayerSpace = Width;   //properties van entity, hoeveel ruimte de player inneemt
+    int heightPlayerSpace = Height;
+
+
+
+    //een nieuw gridje aanmaken voor de ruimte van de player
+    Block[,] gridPlayerSpace = Gamecontroller.CurrentLevel.GetPartOfGrid(positionPlayerSpace,
+                                                                                  widthPlayerSpace,
+                                                                                  heightPlayerSpace);
+
+
+    //we gaan nu het gridje doorlopen en gaan checken of er ergens een activatable in zit
+    foreach (Block tempBlock in gridPlayerSpace)
+    {
+
+      /*if (tempBlock is Activatable) //als er een activatable op staat (als het blockje dat we NU aan het bekijken zijn een Activatable op zich heeft staan)
+      {
+
+        Acitvatable tempBlockActivatable = (Activatable) tempBlock; //De elementen in de 2D Array zijn van het type Block. Eens we zeker zijn dat we het hebben over een Activatable, moeten we die nog omzetten van een Block type naar een Activatable type. Anders kunnen we de Activatable niet activeren.
+        tempBlock.Activate(); //Activeer de activatable. Dit gaat nu wel aangezien het een element van het juiste type is. Deze methode staat in de klasse Activate.
+      
+      }*/
+
+
+    }//einde foreach
+
+
+
+  }//einde CheckActivatables
+
+
+
 
 
 
