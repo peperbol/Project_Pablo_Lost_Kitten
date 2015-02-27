@@ -29,7 +29,7 @@ public class Timer : MonoBehaviour {
 	  else
 	  {
 	    timeLeft = 0;
-      Gamecontroller.GameOver(false); // als de tijd om is, en je hebt niet gewonnen, krijg je u game-over bericht(false = not won)
+      GameController.GameOver(false); // als de tijd om is, en je hebt niet gewonnen, krijg je u game-over bericht(false = not won)
 	  }
     displayObject.text = GetMinutes().ToString("00") +":" + GetSecondsPerMinute().ToString("00"); // we willen 2 getallen, en aanvullen met 0'en
 	  // This is if statement checks how many seconds there are to decide what to do.

@@ -42,7 +42,7 @@ public class Exit : Entity {
 
     if (entity is Player)
     {
-      Gamecontroller.GameOver(true);//bool won = true
+      GameController.GameOver(true);//bool won = true
     }
 
 

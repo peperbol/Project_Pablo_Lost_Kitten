@@ -6,7 +6,7 @@ using UnityEngine;
 GameOver --> methode, aangeroepen verloren hebt of gewonnen*/
 
  
-public static class Gamecontroller
+public static class GameController
 {
   
   

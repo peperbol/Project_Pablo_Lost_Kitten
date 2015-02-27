@@ -50,9 +50,9 @@ public class Lever : Activatable {
 
 
 
-      ScanForAdjacentBlocks(  // heeft 3 parameters (gamecontroller/focusblock   , color   ,  area)
+      ScanForAdjacentBlocks(  // heeft 3 parameters (GameController/focusblock   , color   ,  area)
                          
-                          Gamecontroller.CurrentLevel.GetPartOfGrid( // getPartOfGrid geeft een 2D array terug en heeft 2 parameters
+                          GameController.CurrentLevel.GetPartOfGrid( // getPartOfGrid geeft een 2D array terug en heeft 2 parameters
                                       new Coordinates(focusBlock.Coordinate.XPosition, focusBlock.Coordinate.YPosition - 1),  //Linkerboven co-ordinaten  
                                       1, // breedte van array                              //Ypos - 1 = gaat in u grid 1 naar boven gaan. bv als hij p 12 staat --> 12-1=11
                                       1 // hoogte van array
@@ -62,24 +62,24 @@ public class Lever : Activatable {
                 // wanneer deze is afgelopen en alle bovenstaande blokken zitten in de lijst, gaan we verder naar hieronder
 
               // hier start je verder in de laatste focusblock
-      ScanForAdjacentBlocks(  // heeft 3 parameters (gamecontroller/focusblock   , color   ,  area)
-                          Gamecontroller.CurrentLevel.GetPartOfGrid( // getPartOfGrid geeft een 2D array terug en heeft 2 parameters
+      ScanForAdjacentBlocks(  // heeft 3 parameters (GameController/focusblock   , color   ,  area)
+                          GameController.CurrentLevel.GetPartOfGrid( // getPartOfGrid geeft een 2D array terug en heeft 2 parameters
                                       new Coordinates(focusBlock.Coordinate.XPosition, focusBlock.Coordinate.YPosition+1),
                                       1,                                                   //Ypos + 1 = gaat in u grid 1 naar onder gaan. bv als hij p 12 staat --> 12+1=13
                                       1
                                )[0, 0],         // dit is de focusblock die linksboven in de array(van 1) staat                                          
                           color
                           ); // block er onder
-     ScanForAdjacentBlocks(  // heeft 3 parameters (gamecontroller/focusblock   , color   ,  area )
-                          Gamecontroller.CurrentLevel.GetPartOfGrid( // getPartOfGrid geeft een 2D array terug en heeft 2 parameters
+     ScanForAdjacentBlocks(  // heeft 3 parameters (GameController/focusblock   , color   ,  area )
+                          GameController.CurrentLevel.GetPartOfGrid( // getPartOfGrid geeft een 2D array terug en heeft 2 parameters
                                       new Coordinates(focusBlock.Coordinate.XPosition-1, focusBlock.Coordinate.YPosition),
                                       1,                                                //Xpos - 1 = gaat in u grid 1 naar links gaan. bv als hij p 12 staat --> 12-1=11
                                       1
                               )[0, 0],       // dit is de focusblock die linksboven in de array(van 1) staat                       
                           color
                           ); // block er links van
-      ScanForAdjacentBlocks(   // heeft 3 parameters (gamecontroller/focusblock   , color   ,  area)
-                          Gamecontroller.CurrentLevel.GetPartOfGrid( // getPartOfGrid geeft een 2D array terug en heeft 2 parameters
+      ScanForAdjacentBlocks(   // heeft 3 parameters (GameController/focusblock   , color   ,  area)
+                          GameController.CurrentLevel.GetPartOfGrid( // getPartOfGrid geeft een 2D array terug en heeft 2 parameters
                                       new Coordinates(focusBlock.Coordinate.XPosition+1, focusBlock.Coordinate.YPosition),
                                       1,                                                        //Xpos + 1 = gaat in u grid 1 naar rechts gaan. bv als hij p 12 staat --> 12+1=13
                                       1 
@@ -98,12 +98,12 @@ public class Lever : Activatable {
       area = new List<Block>();   // aanmaken van een list van blocks -- hierin staan alle blokjes van u 1 kleur van waar je opstaat
 
                    //    |  hieronder geeft een 2D array van blocks terug        | 
-      BlockColor color = Gamecontroller.CurrentLevel.GetPartOfGrid(Position, 1, 1)[0, 0].Color;  // dit geeft de kleur van u blokje weer waar u lever op staat
+      BlockColor color = GameController.CurrentLevel.GetPartOfGrid(Position, 1, 1)[0, 0].Color;  // dit geeft de kleur van u blokje weer waar u lever op staat
       // (1,1) [0,0] er kan dus maar 1 ding in en we zetten 0,0 en daar nemen we de kleur van
 
   
       // je start op het blokje waar de lever op staat, en je moet alle blokjes van u kleur waar je opstaat (en waar de lever is) in u list krijgen
-      ScanForAdjacentBlocks(Gamecontroller.CurrentLevel.GetPartOfGrid(Position, 1, 1)[0, 0], color);
+      ScanForAdjacentBlocks(GameController.CurrentLevel.GetPartOfGrid(Position, 1, 1)[0, 0], color);
 
       //nu zouden alle blockjes in de list moeten zitten
 

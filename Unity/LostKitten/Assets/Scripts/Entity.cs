@@ -71,7 +71,7 @@ public abstract class Entity : ObjectInScene, BlockField{
 
 
       //nieuwe grid maken met de methode GetPartOfGrid, met de nieuwe Coördinaten, de breedte en hoogte (als hij zich verplaatst heeft -> nieuwe positie, nieuw deeltje van grid waar we mee werken)
-      Block[,] newBlocksGrid = Gamecontroller.CurrentLevel.GetPartOfGrid(Coordinate, Width, Height); 
+      Block[,] newBlocksGrid = GameController.CurrentLevel.GetPartOfGrid(Coordinate, Width, Height); 
 
 
       if (grid != null) //als er WEL al een grid is (deeltje van grid waar hij op staat) --> moeten die oude blockjes vergeten dat er een entity op staat. Als we net een object van entity aanmaken (via de constructor van entity) heeft die nog zo geen grid. Dan slaat die dit deel over, want dit deel is eigenlijk voor bv als hij gaat moven dat zijn oude grid vergeet da hij erop staat (want hij staat er niet mee rop) en dat het nieuwe grid leert dat hij erop staat. Het is zowiezo op veilig spelen door deze if te gebruiken.
