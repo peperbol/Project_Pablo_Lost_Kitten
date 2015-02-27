@@ -14,9 +14,11 @@ public class Block : ObjectInScene {
     get { return color; }
     set { 
       color = value;
-      // get the name of the according material 
+
+      // vormt de juiste locatie van de nieuwe material. 
       string materialName = "Materials/Block_";
-      switch (value)
+
+      switch (value) // neemt de juiste matierial suffix
       {
         case BlockColor.Red:
           materialName += "Red";
@@ -37,13 +39,21 @@ public class Block : ObjectInScene {
           materialName += "Purple";
           break;
       }
-      //change the material of the block
+      //veranderd de material van de block
       gameObject.transform.GetChild(0).renderer.material = (Material) Resources.Load(materialName, typeof(Material));
 
     }
   }
 
-  public bool IsEntityInList(Entity entityToCheck)
+  public List<Entity> Entities //get property die de entity terug geeft
+  {
+    get
+    {
+      return entities;
+    }
+  }
+
+  public bool IsEntityInList(Entity entityToCheck) // kijkt na of de enity al in de list staat
   {
     bool isInList = false;
 
@@ -55,27 +65,27 @@ public class Block : ObjectInScene {
   }
 
 
-  public void AddEntity(Entity entityToAdd)
+  public void AddEntity(Entity entityToAdd) // voegt de entity toe aan de list (als hij er nog niet in zit)
   {
     if (!IsEntityInList(entityToAdd))
     {
       
         foreach (Entity entInList in entities)
         {
-          entInList.CollideEnter(entityToAdd);
+          entInList.CollideEnter(entityToAdd); //geeft event door
         }
       entities.Add(entityToAdd);
       
     }
   }
 
-  public void RemoveEntity(Entity entityToRemove)
+  public void RemoveEntity(Entity entityToRemove) // verwijderd een entity van de list als hij er in zit
   {
     if (IsEntityInList(entityToRemove))
     {
         foreach (Entity entInList in entities)
         {
-          entInList.CollideLeave(entityToRemove);
+          entInList.CollideLeave(entityToRemove); // geeft event door
         }
       entities.Remove(entityToRemove);
     }
