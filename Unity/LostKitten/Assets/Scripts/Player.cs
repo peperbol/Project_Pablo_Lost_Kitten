@@ -19,19 +19,17 @@ public class Player : Entity
     : base((GameObject)Resources.Load("Prefabs/Player", typeof(GameObject)), xPosition, yPosition, parent) //we gaan naar de Unity vaste klasse Resources --> daaruit gaan we een bestand laden in het script, we gaan naar de map Prefabs en nemen daar het bestand Player uit en het is een Gameobject, we gaan het geheel ook omzetten naar ene Gameobject aangezien als je iets laad op deze manier het een object gaat teruggeven en niet een GAMEobject
   {
     //neemt hierin over wat er in de constructor staat van entity
-    GameController.PlayerInGame = this; // dit is de player van gamecontroller aangeven
+    GameController.PlayerInGame = this; // dit is de player waar we mee werken aangeven aan GameController
   }
 
   
   
 
-
-
   //private variabelen
 
   //deze zijn de enige die hij specifiek heeft tegenover andere entities
   private Direction perspective; //de player gaat een richting uitkijken als waarde --> enum --> up, down, left of right
-  private BlockColor currentColorBlock; //De player gaat ook op een bepaalde blok staan met zijn kleur --> enum --> alle kleuren
+  private BlockColor currentColorBlock; //De player gaat ook op een bepaalde grid staan met blocken die bepaalde kleuren gaan hebben --> enum --> Red, Orange, Yellow, Green, Blue, Purple
 
 
 
@@ -54,17 +52,17 @@ public class Player : Entity
 
 
 
-  //geen abstract meer voor de breedte en hoogte die onze player inneemt --> gaan nu !!eindelijk!! een waarde krijgen --> initialiseren, read-only want het gaat sowieso 8 zijn de waarde (gaan het niet kunnen veranderen)
+  //geen abstract meer voor de breedte en hoogte die onze player inneemt --> gaan nu een waarde krijgen (initialiseren), read-only want het gaat sowieso 4 zijn de waarde (gaan het niet kunnen veranderen)
   public override int Width //override omdat het in entity abstract is 
   {
-    get { return 4; } //krijgt de waarde 8 mee 
+    get { return 4; } //krijgt de waarde 4 mee 
   }
 
 
 
   public override int Height
   {
-    get { return 4; } //krijgt de waarde 8 mee 
+    get { return 4; } //krijgt de waarde 4 mee 
   }
 
 
@@ -84,7 +82,8 @@ public class Player : Entity
 
     //gaan een duidelijkere naam geven
     Coordinates positionPlayerSpacePlusMoveSpace;
-    int widthPlayerSpacePlusMoveSpace, heightPlayerSpacePlusMoveSpace; // int height staat er eigenlijk ook, zijn de hoogtes en breedtes van de ruimte die de player inneemt PLUS de ruimte (die 2 blockjes) waar hij naartoe gaat gaan
+    int widthPlayerSpacePlusMoveSpace;
+    int heightPlayerSpacePlusMoveSpace; //de hoogtes en breedtes van de ruimte die de player inneemt PLUS de ruimte waar hij naartoe gaat gaan
 
 
     //voorlopig hebben deze variabelen nog deze waardes, de oude positie, en de oude hoogte en breedte
@@ -94,8 +93,8 @@ public class Player : Entity
 
 
     
-
-    //hier gaan we een nieuw gebied selecteerbaar maken, namelijk de ruimte die de speler inneemt EN de ruimte waar hij mogelijk naartoe kan
+    //hier krijgen deze variabelen een nieuwe waarde
+    //we maken een nieuw gebied "selecteerbaar", namelijk de ruimte die de speler inneemt EN de ruimte waar hij mogelijk naartoe kan
 
     switch (direction) //Als de direction (parameter die je meegeeft bij het oproepen van de methode) gelijk is aan..
       {
@@ -141,43 +140,46 @@ public class Player : Entity
                                                                                   heightPlayerSpacePlusMoveSpace);
 
 
-    //Lijstje om alle kleuren die we uit ons gridje gaan halen gaan verzamelen
+    //Lijstje om alle kleuren die we uit ons gridje gaan halen gaan verzamelen --> de kleuren waar hij op staat en waar hij op wilt gaan staan
     List <BlockColor> listColorsInGrid = new List<BlockColor>(); 
     
 
    
-    //we gaan nu alle blockjes in ons nieuw gridje doorlopen (nog es, dat is het gebied waar de entity op staat EN waar hij naartoe wilt)
+    //we gaan nu alle blockjes in ons nieuw gridje doorlopen
     foreach (Block tempBlock in gridPlayerSpaceMoveSpace)
     {
       
 
         BlockColor colorOfBlock = tempBlock.Color; //De kleur van een bepaalde block (met coördinaten x en y) Color = property van Block, in nieuwe variabele gestoken om het korter te kunnen schrijven
         
+
+        //gaan nu alle kleuren die zich in het grid bevinden verzamelen (willen geen dubbele in de lijst)
+
         bool isAlreadyAddedToColorList = false; //voorlopig op false zetten 
 
-      
+
 
         foreach (BlockColor blockColorList in listColorsInGrid) //listColors kunnen er al mogelijk kleuren inzitten, we willen niet 2 keer dezelfde kleur erin hebben zitten dus gaan nu checken welke kleuren er al in zitten in listColors
         {
-          if (colorOfBlock == blockColorList) //gaan de kleur van ons blockje waar we op dit moment zitten in ons grid gaan vergelijken met alle kleuren die al in de listColors zitten 
+          if (blockColorList == colorOfBlock ) //gaan de kleur van ons blockje waar we op dit moment zitten in ons grid gaan vergelijken met alle kleuren die al in de listColors zitten 
           {
             isAlreadyAddedToColorList = true; //als die eraan gelijk is (zit er al in dus en willen we niet nog een keer erin), dan zetten we deze op true
           }
         
-        }//einde foreach
+        }//einde foreach, hebben nu een verzameling waar de kleuren in zitten die moeten worden toegevoegd
 
 
 
         if (!isAlreadyAddedToColorList)//enkel als het nog niet geadd is (er nog niet in zit) 
         {
 
-          listColorsInGrid.Add(colorOfBlock);// gaan we hem toevoegen aan de listColors lijst (in de lijst zitten dus de kleuren waar hij op staat en waar hij op wilt gaan staan) 
+          listColorsInGrid.Add(colorOfBlock);// gaan we hem toevoegen aan de listColors lijst  
         
         }
 
 
 
-    }//einde foreach
+    }//einde doorlopen grid
 
 
 
@@ -189,9 +191,9 @@ public class Player : Entity
     {
       
 
-      //als die voorwaarden voldaan worden mag hij ook effectief zich gaan verplaatsen naar waar hij wilt  --> position aan gaan passen
+      //dan mag hij ook effectief zich gaan verplaatsen naar waar hij wilt  --> position aan gaan passen
 
-      Coordinates newPosition = Position; //de momentele positie hier al in steken (voorlopig)
+      Coordinates newPosition = Position; //de momentele positie hier al in steken (voorlopig), we gaan hem aanpassen
 
       switch (direction)
       {
@@ -247,15 +249,15 @@ public class Player : Entity
 
 
 
-    //we gaan nu het gridje doorlopen en gaan checken of er ergens een activatable in zit (buiten de player natuurlijk, dus of er 2 in zitten) en die in de lijst van entities die hij vindt in het grid gaan steken
+    //we gaan nu het gridje doorlopen en de entities in de lijst van entities steken
+    
+    
     foreach (Block tempBlock in gridPlayerSpace)
     {
 
-      foreach (Entity entityOnBlock in tempBlock.Entities)//Entities is een list van entities die op die Block staan, komt uit Block
+      foreach (Entity entitieOnBlock in tempBlock.Entities)//lijst van entities die op de Block die we nu aan het bekijken zijn staan, .Entities komt uit Block
       {
         
-      
-          //Entity entityOnBlock = tempBlock.Entity; //gaat nog niet, makkelijkere naam geven
 
           bool isAlreadyAddedToEntityList = false; //voorlopig op false zetten
 
@@ -264,7 +266,7 @@ public class Player : Entity
         foreach (Entity entityInList in listEntitiesInGrid)
         {
 
-          if (entityInList == entityOnBlock)
+          if (entityInList == entitieOnBlock)
             //entity('s) op block gaan checken of die al in de lijst van entities zit (geen 2 keer dezelfde)
           {
             isAlreadyAddedToEntityList = true; //zit er al in, dus moet niet meer worden toegevoegd
@@ -275,21 +277,25 @@ public class Player : Entity
 
 
 
-        //dit moet buiten de foreach staan want anders gaat hij voor elk item waar het niet mee overeen komt toevoegen, bv bolletje = bolletje checken--> niet toevoegen, bolletje = driehoekje checken --> nee, toevoegen, bolletje = vierkantje checken --> nee, toevoegen (bollejte zit er nu al 3 keer in, niet de bedoeling)
+        //(dit moet buiten de foreach staan want anders gaat hij voor elk item waar het niet mee overeen komt toevoegen, bv bolletje = bolletje checken--> niet toevoegen, bolletje = driehoekje checken --> nee, toevoegen, bolletje = vierkantje checken --> nee, toevoegen (bollejte zit er nu al 3 keer in, niet de bedoeling))
         
-        
-        // nu voegen we ook echt die entities toe aan de list
+        //nu voegen we ook echt die entities toe aan de list
         if (!isAlreadyAddedToEntityList) //als hij er nog NIET in zit, toevoegen
             {
-              listEntitiesInGrid.Add(entityOnBlock); //de entity op de block die we aan het checken zijn, toevoegen aan de lijst van entities die zich op dat grid van de player bevinden
+              listEntitiesInGrid.Add(entitieOnBlock); //de entity op de block die we aan het checken zijn, toevoegen aan de lijst van entities die zich op dat grid van de player bevinden
             }
 
          //nu zitten er in de list van entities alle entities die zich bevinden in ons grid van de player
 
-      }//einde foreach (die per block alle entities na checkt)
 
-    }//einde foreach (die alle blocke na checkt)
 
+      }//einde per block alle entities na checken
+
+    }//einde alle blocken na checken
+
+
+
+    //nu gaan checken of er ergens een activatable in zit en die ook activaten
     foreach (Entity tempEntityInGrid in listEntitiesInGrid)//we overlopen de (wss 2) elementen die in de lijst zitten
     {
 
@@ -304,10 +310,6 @@ public class Player : Entity
 
 
   }//einde CheckActivatables
-
-
-
-
 
 
 

@@ -14,15 +14,16 @@ public abstract class Entity : ObjectInScene, BlockField{
   protected Entity(GameObject gameObject, int xPosition, int yPosition, GameObject parent)// gameobject --> prefab die je gebruikt voor de entity, positie waar de entity gaat staan, de parent bv world
     : base(gameObject, xPosition, yPosition, parent)//als je een nieuwe entity gaat aanmaken, ga je deze dingen meegeven tussen de haakjes
   {
-    Position = Coordinate; //de coördinaten die ObjectInScene heeft aangemaakt --> nu al voorlopig in Position steken, positie kan nog verandert worden als je moved (dit is de startpositie)
+    Position = Coordinate; //de coördinaten die ObjectInScene heeft aangemaakt --> in Position steken --> is de startpositie. Als je moved --> positie verandert 
   }
 
 
 
   //variabelen
   private EntityType typeOfEntity;//soort entity --> enum, keuze uit player, exit, slider, en lever
-  private Block[,] grid; //komt van de interface Blockfield, erft er niet echt van over (is een interface, dat gaat niet) dus die moet hier terugkomen (code wordt niet automatisch hier al in "geplakt" zoals bij het overerven) 
-                         //2dimensionaal gridje van zo 1 block waarop de entity staat (de ruimte die hij inneemt)
+  private Block[,] grid; //2dimensionaal gridje waarop de entity staat (de ruimte die hij inneemt)
+                         //komt van de interface Blockfield, erft er niet echt van over (is een interface, dat gaat niet) dus die moet hier terugkomen (code wordt niet automatisch hier al in "geplakt" zoals bij het overerven) 
+                         
 
 
   //property
@@ -34,14 +35,14 @@ public abstract class Entity : ObjectInScene, BlockField{
 
 
 
-  public Block[,] Grid //read only property 
+  public Block[,] Grid //read only property, grid waar hij opstaat teruggeven 
   {
     get { return grid; }
   }
 
 
 
-  //abstract --> moet nog een waarde krijgen, dit zullen constanten worden (vandaar de hoofdletters), is voor een hoogte en breedte te geven aan de blokken die de entities gaan innemen, enkel get (const. kan je niet aanpassen --> vaste waarde) pepijn breekt mijn wereld --> propertie is NIET gelinkt aan een variabele maar aan een waarde, die je nu nog niet weet. (is versch. voor elke entity) 
+  //abstract --> moet nog een waarde krijgen, is voor een hoogte en breedte te geven aan de blokken die de entities gaan innemen, enkel get is versch. voor elke entity
   public abstract int Width
   {
     get;
@@ -56,13 +57,15 @@ public abstract class Entity : ObjectInScene, BlockField{
 
 
 
-  //de entity gaat zich verplaatsen en heeft dus een nieuwe positie, we werken via de property Coordinate uit ObjectInScene --> krijgt nieuwe coördinaten
+  
   public Coordinates Position // van property naar property (Position, Coordinate)
   {
 
     get { return Coordinate; } //geef de waarde van de property Coordinate terug, zijn de coördinaten x en y
 
 
+
+    //de entity gaat zich verplaatsen en heeft dus een nieuwe positie, we werken via de property Coordinate uit ObjectInScene --> krijgt nieuwe coördinaten
     set
     {
 
@@ -74,11 +77,13 @@ public abstract class Entity : ObjectInScene, BlockField{
       Block[,] newBlocksGrid = GameController.CurrentLevel.GetPartOfGrid(Coordinate, Width, Height); 
 
 
-      if (grid != null) //als er WEL al een grid is (deeltje van grid waar hij op staat) --> moeten die oude blockjes vergeten dat er een entity op staat. Als we net een object van entity aanmaken (via de constructor van entity) heeft die nog zo geen grid. Dan slaat die dit deel over, want dit deel is eigenlijk voor bv als hij gaat moven dat zijn oude grid vergeet da hij erop staat (want hij staat er niet mee rop) en dat het nieuwe grid leert dat hij erop staat. Het is zowiezo op veilig spelen door deze if te gebruiken.
+      if (grid != null) //als er WEL al een grid is (deeltje van grid waar hij op staat) --> moeten die oude blockjes vergeten dat er een entity op staat. Als we net een object van entity aanmaken (via de constructor van entity) heeft die nog zo geen grid. Dan slaat die dit deel over, want dit deel is eigenlijk voor bv als hij gaat moven dat zijn oude grid vergeet da hij erop staat (want hij staat er niet meer op) en dat het nieuwe grid leert dat hij erop staat.
       {
 
-
-        //oude blockjes vergeten dat er een entity op zich staat (staat er niet meer op) VOOR we het grid gaan vervangen
+        //oude blockjes vergeten dat er een entity op zich staat (staat er niet meer op) VOOR we het grid gaan vervangen (anders werken we met het nieuwe grid voor dit en dat willen we niet)
+        
+        
+        //we gaan checken of er blockjes zijn in het oude grid die exact op die plaats mogen blijven staan voor het nieuwe grid (moeten die niet verwijderen)
         foreach (Block tempOldBlockje in grid) //oude blockjes overlopen
         {
 
@@ -99,7 +104,7 @@ public abstract class Entity : ObjectInScene, BlockField{
 
           if (leavesThisBlock) //als hij niet gelijk is aan een blockje in de nieuwe grid --> hoort er dus niet te zijn in het nieuwe, moet verwijdert worden
           {
-            tempOldBlockje.RemoveEntity(this); //de entity waar we het over hebben (klasse entity) verwijderen (is een oud blockje dat niet thuishoort in het nieuwe gridje van waar de entity zich gaat bevinden)
+            tempOldBlockje.RemoveEntity(this); //de entity waar we het over hebben (klasse entity) verwijderen
           }
 
       
@@ -114,7 +119,7 @@ public abstract class Entity : ObjectInScene, BlockField{
       grid = newBlocksGrid;
 
 
-      //nieuwe blockjes (onderdeel van DE block waar hij op staat) leren dat er een entity op zich staat
+      //nieuwe blockjes leren dat er een entity op zich staat
       foreach (Block tempBlockje in grid) // nieuwe gridje doorlopen
       {
         tempBlockje.AddEntity(this); //de entity waar we het over hebben (klasse entity) aanleren aan de blockjes
@@ -129,9 +134,10 @@ public abstract class Entity : ObjectInScene, BlockField{
 
 
 
-  //methoden
+  //METHODEN
 
-  //gaat overschreven worden door Exit, wat moet er gebeuren als de player in contact komt met een andere entity (ze overlappen dan, de player komt in zijn territorium)
+  //gaat overschreven worden door Exit
+  //wat moet er gebeuren als de player in contact komt met een andere entity (ze overlappen dan, de player komt in zijn territorium)
   public virtual void CollideEnter(Entity entity) 
   {
     //hier moet er nog niks ingevuld worden, is te verschillend van entity tot entity, als er meer entities zouden zijn, zouden deze methodes vaker overschreven worden
