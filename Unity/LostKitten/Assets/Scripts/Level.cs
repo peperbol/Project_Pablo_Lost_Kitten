@@ -30,7 +30,7 @@ public class Level : BlockField
   //Constuctor
   public Level (LevelTemplate levelTemplate)
   {
-    Gamecontroller.CurrentLevel = this;
+    GameController.CurrentLevel = this;
     worldRoot = GameObject.FindWithTag("WorldRoot");
     template = levelTemplate;
     BuildLevel();

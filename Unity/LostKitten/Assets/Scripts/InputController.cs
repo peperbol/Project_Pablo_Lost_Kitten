@@ -25,22 +25,22 @@ public class InputController : MonoBehaviour
         {
           if (moveHorizontal > 0)
           {
-            Gamecontroller.PlayerInGame.Move(Direction.Right);
+            GameController.PlayerInGame.Move(Direction.Right);
           }
           else
           {
-            Gamecontroller.PlayerInGame.Move(Direction.Left); 
+            GameController.PlayerInGame.Move(Direction.Left); 
           }
         }
         if (Mathf.Abs(moveVertical) > trigger)//dus als je 0.4 naar boven/onder gaat, gaat het niet mogen, mintsens 0.5 om te bewegen
         {
           if (moveVertical > 0)
           {
-            Gamecontroller.PlayerInGame.Move(Direction.Up);
+            GameController.PlayerInGame.Move(Direction.Up);
           }
           else
           {
-            Gamecontroller.PlayerInGame.Move(Direction.Down);
+            GameController.PlayerInGame.Move(Direction.Down);
           }
         }
 

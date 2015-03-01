@@ -19,18 +19,17 @@ public class Player : Entity
     : base((GameObject)Resources.Load("Prefabs/Player", typeof(GameObject)), xPosition, yPosition, parent) //we gaan naar de Unity vaste klasse Resources --> daaruit gaan we een bestand laden in het script, we gaan naar de map Prefabs en nemen daar het bestand Player uit en het is een Gameobject, we gaan het geheel ook omzetten naar ene Gameobject aangezien als je iets laad op deze manier het een object gaat teruggeven en niet een GAMEobject
   {
     //neemt hierin over wat er in de constructor staat van entity
-    Gamecontroller.PlayerInGame = this; // dit is de player van gamecontroller aangeven
+    GameController.PlayerInGame = this; // dit is de player waar we mee werken aangeven aan GameController
   }
 
   
   
 
-
-
   //private variabelen
 
+  //deze zijn de enige die hij specifiek heeft tegenover andere entities
   private Direction perspective; //de player gaat een richting uitkijken als waarde --> enum --> up, down, left of right
-  private BlockColor currentColor; //De player gaat ook op een bepaalde blok staan met zijn kleur --> enum --> alle kleuren
+  private BlockColor currentColorBlock; //De player gaat ook op een bepaalde grid staan met blocken die bepaalde kleuren gaan hebben --> enum --> Red, Orange, Yellow, Green, Blue, Purple
 
 
 
@@ -45,25 +44,25 @@ public class Player : Entity
 
 
 
-  public BlockColor CurrentColor // we gaan de kleur van de block waar hij op staat kunnen opvragen en meegeven
+  public BlockColor CurrentColorBlock // we gaan de kleur van de block waar hij op staat kunnen opvragen en meegeven
   {
-    get { return currentColor; }
-    set { currentColor = value; }
+    get { return currentColorBlock; }
+    set { currentColorBlock = value; }
   }
 
 
 
-  //geen abstract meer voor de breedte en hoogte die onze player inneemt --> gaan nu !!eindelijk!! een waarde krijgen --> initialiseren, readonly want het gaat sowieso 8 zijn de waarde (gaan het niet kunnen veranderen)
+  //geen abstract meer voor de breedte en hoogte die onze player inneemt --> gaan nu een waarde krijgen (initialiseren), read-only want het gaat sowieso 4 zijn de waarde (gaan het niet kunnen veranderen)
   public override int Width //override omdat het in entity abstract is 
   {
-    get { return 4; } //krijgt de waarde 8 mee 
+    get { return 4; } //krijgt de waarde 4 mee 
   }
 
 
 
   public override int Height
   {
-    get { return 4; } //krijgt de waarde 8 mee 
+    get { return 4; } //krijgt de waarde 4 mee 
   }
 
 
@@ -80,8 +79,12 @@ public class Player : Entity
   {
 
     //lokale variabelen
+
+    //gaan een duidelijkere naam geven
     Coordinates positionPlayerSpacePlusMoveSpace;
-    int widthPlayerSpacePlusMoveSpace, heightPlayerSpacePlusMoveSpace; // int height staat er eigenlijk ook, zijn de hoogtes en breedtes van de ruimte die de player inneemt PLUS de ruimte (die 2 blockjes) waar hij naartoe gaat gaan
+    int widthPlayerSpacePlusMoveSpace;
+    int heightPlayerSpacePlusMoveSpace; //de hoogtes en breedtes van de ruimte die de player inneemt PLUS de ruimte waar hij naartoe gaat gaan
+
 
     //voorlopig hebben deze variabelen nog deze waardes, de oude positie, en de oude hoogte en breedte
     positionPlayerSpacePlusMoveSpace = Position; //position property van entity om de oude positie weer te geven (kan ook met de set een nieuwe positie meegeven maar dat gaan we nu niet doen)
@@ -90,8 +93,8 @@ public class Player : Entity
 
 
     
-
-    //hier gaan we een nieuw gebied selecteerbaar maken, namelijk de ruimte die de speler inneemt EN de ruimte waar hij mogelijk naartoe kan
+    //hier krijgen deze variabelen een nieuwe waarde
+    //we maken een nieuw gebied "selecteerbaar", namelijk de ruimte die de speler inneemt EN de ruimte waar hij mogelijk naartoe kan
 
     switch (direction) //Als de direction (parameter die je meegeeft bij het oproepen van de methode) gelijk is aan..
       {
@@ -119,10 +122,10 @@ public class Player : Entity
 
 
     // 4 dingen checken: of hij vanboven, vanonder, links of rechts niet uit het grid valt (geen blockjes meer zijn, aan de rand van je grid zit)
-    if (positionPlayerSpacePlusMoveSpace.YPosition < 0 || //vanboven uit grid
-        positionPlayerSpacePlusMoveSpace.XPosition < 0 || //links uit grid
-        positionPlayerSpacePlusMoveSpace.YPosition + heightPlayerSpacePlusMoveSpace -1 >= Gamecontroller.CurrentLevel.Height || //vanonder uit grid, positie plus hoogte van (bv positie 5 (y coordinaat) + 3 hoog = 8 - 1 (omdat je het deel van het grid waar je naar gaat moven ook meetelt) = 7 (eindigt op coördinaat 7, als je grid maar 7 blokjes hoog is (index 6 is het laatste mogelijke lijntje waar hij dan op mag staan) --> valt hij uit grid, mag niet  
-        positionPlayerSpacePlusMoveSpace.XPosition + widthPlayerSpacePlusMoveSpace -1 >= Gamecontroller.CurrentLevel.Width) //rechts uit grid
+    if (positionPlayerSpacePlusMoveSpace.YPosition < 0 || //of positie niet vanboven uit grid valt
+        positionPlayerSpacePlusMoveSpace.XPosition < 0 || //of positie links niet uit grid valt
+        positionPlayerSpacePlusMoveSpace.YPosition + heightPlayerSpacePlusMoveSpace - 1 >= GameController.CurrentLevel.Height || //vanonder uit grid, positie (bv positie 5 (y coordinaat) + (+, hoe meer naar onder je gaat) 3 hoog (- 1 (omdat je het deel van het grid waar je naar gaat moven ook meetelt)) = 7 (eindigt op coördinaat 7, als je grid maar 6 blokjes hoog is --> valt hij uit grid, mag niet  
+        positionPlayerSpacePlusMoveSpace.XPosition + widthPlayerSpacePlusMoveSpace -1 >= GameController.CurrentLevel.Width) //rechts uit grid
     {
       
       
@@ -132,61 +135,65 @@ public class Player : Entity
 
 
     //nieuwe variabelen aanmaken 2d array van blocks --> met methode GetPartOfGrid van level gaan we van het deel dat we nu net geselecteerd hebben,ook echt een gridje op zich maken
-    Block[,] gridPlayerSpaceMoveSpace = Gamecontroller.CurrentLevel.GetPartOfGrid(positionPlayerSpacePlusMoveSpace,
+    Block[,] gridPlayerSpaceMoveSpace = GameController.CurrentLevel.GetPartOfGrid(positionPlayerSpacePlusMoveSpace,
                                                                                   widthPlayerSpacePlusMoveSpace, 
                                                                                   heightPlayerSpacePlusMoveSpace);
 
 
-    //Lijstje om alle kleuren die we uit ons gridje gaan halen gaan verzamelen
-    List <BlockColor> listColors = new List<BlockColor>(); 
+    //Lijstje om alle kleuren die we uit ons gridje gaan halen gaan verzamelen --> de kleuren waar hij op staat en waar hij op wilt gaan staan
+    List <BlockColor> listColorsInGrid = new List<BlockColor>(); 
     
 
    
-    //we gaan nu alle blockjes in ons nieuw gridje doorlopen (nog es, dat is het gebied waar de entity op staat EN waar hij naartoe wilt)
+    //we gaan nu alle blockjes in ons nieuw gridje doorlopen
     foreach (Block tempBlock in gridPlayerSpaceMoveSpace)
     {
       
 
         BlockColor colorOfBlock = tempBlock.Color; //De kleur van een bepaalde block (met coördinaten x en y) Color = property van Block, in nieuwe variabele gestoken om het korter te kunnen schrijven
         
-        bool isAlreadyAdded = false; //voorlopig op false zetten 
+
+        //gaan nu alle kleuren die zich in het grid bevinden verzamelen (willen geen dubbele in de lijst)
+
+        bool isAlreadyAddedToColorList = false; //voorlopig op false zetten 
 
 
 
-        foreach (BlockColor tempVar in listColors) //listColors kunnen er al mogelijk kleuren inzitten, we willen niet 2 keer dezelfde kleur erin hebben zitten dus gaan nu checken welke kleuren er al in zitten in listColors
+        foreach (BlockColor blockColorList in listColorsInGrid) //listColors kunnen er al mogelijk kleuren inzitten, we willen niet 2 keer dezelfde kleur erin hebben zitten dus gaan nu checken welke kleuren er al in zitten in listColors
         {
-          if (tempVar == colorOfBlock) //gaan alle kleuren die er al in zitten vergelijken met de kleur van ons blockje dat we aan het checken zijn
+          if (blockColorList == colorOfBlock ) //gaan de kleur van ons blockje waar we op dit moment zitten in ons grid gaan vergelijken met alle kleuren die al in de listColors zitten 
           {
-            isAlreadyAdded = true; //als die eraan gelijk is (zit er al in dus en willen we niet nog een keer erin), dan zetten we deze op true
+            isAlreadyAddedToColorList = true; //als die eraan gelijk is (zit er al in dus en willen we niet nog een keer erin), dan zetten we deze op true
           }
-          
-        }//einde foreach
+        
+        }//einde foreach, hebben nu een verzameling waar de kleuren in zitten die moeten worden toegevoegd
 
 
 
-        if (!isAlreadyAdded)//enkel als het nog niet geadd is (er nog niet in zit) 
+        if (!isAlreadyAddedToColorList)//enkel als het nog niet geadd is (er nog niet in zit) 
         {
-          listColors.Add(colorOfBlock);// gaan we hem toevoegen aan de listColors lijst (in de lijst zitten dus de kleuren waar hij op staat en waar hij op wilt gaan staan) 
+
+          listColorsInGrid.Add(colorOfBlock);// gaan we hem toevoegen aan de listColors lijst  
         
         }
 
 
 
-    }//einde foreach
+    }//einde doorlopen grid
 
 
 
 
 
 
-    if (listColors.Count == 1 ||  //als er maar 1 kleur in zit (de kleur waar hij op staat is hetzelfde als de kleur waar hij naartoe wilt)
-      (listColors.Count == 2  &&  ColorSpectrum.IsAdjacent(listColors[0], listColors[1]))) //kleur waar hij op staat is anders dan de kleur waar hij naartoe wilt, gaat dan checken of ze adjacent zijn
+    if (listColorsInGrid.Count == 1 ||  //als er maar 1 kleur in zit (de kleur waar hij op staat is hetzelfde als de kleur waar hij naartoe wilt)
+      (listColorsInGrid.Count == 2 && ColorSpectrum.IsAdjacent(listColorsInGrid[0], listColorsInGrid[1]))) //kleur waar hij op staat is anders dan de kleur waar hij naartoe wilt, gaat dan checken of ze adjacent zijn (index 0 en index 1 gaan nemen als de parameters --> de 2 blockcolors die je gaat vergelijken)
     {
       
 
-      //als die voorwaarden voldaan worden mag hij ook effectief zich gaan verplaatsen naar waar hij wilt  --> position aan gaan passen
+      //dan mag hij ook effectief zich gaan verplaatsen naar waar hij wilt  --> position aan gaan passen
 
-      Coordinates newPosition = Position; //de momentele positie hier al in steken (voorlopig)
+      Coordinates newPosition = Position; //de momentele positie hier al in steken (voorlopig), we gaan hem aanpassen
 
       switch (direction)
       {
@@ -228,42 +235,81 @@ public class Player : Entity
   public void CheckForActivables()// om de player een lever of slider te laten activeren (algemeen, om EEN activatable te activeren)
   {
     
-    
     //gaan terug het gridje waar hij opstaat selecteren en overlopen om te zien of er een activatable op staat. Dan kunnen we die ook activeren. 
-    Coordinates positionPlayerSpace = Position; //niet meer plus moveSpace nu want we gaan enkel de ruimte die hij inneemt checken.
-    int widthPlayerSpace = Width;   //properties van entity, hoeveel ruimte de player inneemt
-    int heightPlayerSpace = Height;
-
-
+    
 
     //een nieuw gridje aanmaken voor de ruimte van de player
-    Block[,] gridPlayerSpace = Gamecontroller.CurrentLevel.GetPartOfGrid(positionPlayerSpace,
-                                                                                  widthPlayerSpace,
-                                                                                  heightPlayerSpace);
+    Block[,] gridPlayerSpace = GameController.CurrentLevel.GetPartOfGrid(Position,//enkel de ruimte van de player, dus kunnen gewoon de properties gebruiken van player (origineel van entity)
+                                                                         Width,
+                                                                         Height);
 
 
-    //we gaan nu het gridje doorlopen en gaan checken of er ergens een activatable in zit
+    //lijst om alle entities die hij vindt in het grid in te steken
+    List<Entity> listEntitiesInGrid = new List<Entity>();
+
+
+
+    //we gaan nu het gridje doorlopen en de entities in de lijst van entities steken
+    
+    
     foreach (Block tempBlock in gridPlayerSpace)
     {
 
-      /*if (tempBlock is Activatable) //als er een activatable op staat (als het blockje dat we NU aan het bekijken zijn een Activatable op zich heeft staan)
+      foreach (Entity entitieOnBlock in tempBlock.Entities)//lijst van entities die op de Block die we nu aan het bekijken zijn staan, .Entities komt uit Block
       {
+        
 
-        Acitvatable tempBlockActivatable = (Activatable) tempBlock; //De elementen in de 2D Array zijn van het type Block. Eens we zeker zijn dat we het hebben over een Activatable, moeten we die nog omzetten van een Block type naar een Activatable type. Anders kunnen we de Activatable niet activeren.
-        tempBlock.Activate(); //Activeer de activatable. Dit gaat nu wel aangezien het een element van het juiste type is. Deze methode staat in de klasse Activate.
-      
-      }*/
+          bool isAlreadyAddedToEntityList = false; //voorlopig op false zetten
 
 
-    }//einde foreach
 
+        foreach (Entity entityInList in listEntitiesInGrid)
+        {
+
+          if (entityInList == entitieOnBlock)
+            //entity('s) op block gaan checken of die al in de lijst van entities zit (geen 2 keer dezelfde)
+          {
+            isAlreadyAddedToEntityList = true; //zit er al in, dus moet niet meer worden toegevoegd
+          }
+
+
+        }//einde foreach, nu weten we welke entities er al in zitten en welke niet
+
+
+
+        //(dit moet buiten de foreach staan want anders gaat hij voor elk item waar het niet mee overeen komt toevoegen, bv bolletje = bolletje checken--> niet toevoegen, bolletje = driehoekje checken --> nee, toevoegen, bolletje = vierkantje checken --> nee, toevoegen (bollejte zit er nu al 3 keer in, niet de bedoeling))
+        
+        //nu voegen we ook echt die entities toe aan de list
+        if (!isAlreadyAddedToEntityList) //als hij er nog NIET in zit, toevoegen
+            {
+              listEntitiesInGrid.Add(entitieOnBlock); //de entity op de block die we aan het checken zijn, toevoegen aan de lijst van entities die zich op dat grid van de player bevinden
+            }
+
+         //nu zitten er in de list van entities alle entities die zich bevinden in ons grid van de player
+
+
+
+      }//einde per block alle entities na checken
+
+    }//einde alle blocken na checken
+
+
+
+    //nu gaan checken of er ergens een activatable in zit en die ook activaten
+    foreach (Entity tempEntityInGrid in listEntitiesInGrid)//we overlopen de (wss 2) elementen die in de lijst zitten
+    {
+
+      if (tempEntityInGrid is Activatable)//als er de entity een activatable is, moeten we hem casten zodat we hem kunnen activeren (een entity.Activate gaat niet)
+      {
+        Activatable activatableInGrid = (Activatable)tempEntityInGrid;
+        activatableInGrid.Activate();
+
+      }
+
+    }
 
 
   }//einde CheckActivatables
-
-
-
-
 
 
 

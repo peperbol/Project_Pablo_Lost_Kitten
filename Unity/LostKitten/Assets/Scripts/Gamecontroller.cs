@@ -6,7 +6,7 @@ using UnityEngine;
 GameOver --> methode, aangeroepen verloren hebt of gewonnen*/
 
  
-public static class Gamecontroller
+public static class GameController//static class zodat je deze variabelen over alle klasses heen kan aanspreken
 {
   
   
@@ -22,7 +22,7 @@ public static class Gamecontroller
 
 
   //properties
-  public static Level CurrentLevel 
+  public static Level CurrentLevel //level waar je op het moment in zit
   {
     get { return currentLevel; }
     set { currentLevel = value; } 
@@ -30,7 +30,7 @@ public static class Gamecontroller
 
 
 
-  public static Player PlayerInGame
+  public static Player PlayerInGame //met welke player je aan het spelen bent (voor moest er iemand het spel uitbreiden bv)
   {
     get { return player; }
     set { player = value; }
@@ -38,14 +38,14 @@ public static class Gamecontroller
 
 
   
-  public static Timer CurrentTimer
+  public static Timer CurrentTimer //de timer die je aan het gebruiken bent
   {
     get { return timer; }
     set { timer = value;}
   }
 
 
-  public static bool InGame
+  public static bool InGame //of je het spel aan het spelen bent (als je in de menu zit bv staat dit op false)
   {
     get { return inGame; }
     set { inGame = value;}
@@ -54,9 +54,9 @@ public static class Gamecontroller
 
 
 //methoden
-  public static void GameOver(bool won)
+  public static void GameOver(bool won) //om het spel te laten stoppen (naar levels pagina)
   {
-    Debug.Log(won);
+    Debug.Log(won); 
     if (won)
     {
      Application.Quit();
@@ -64,7 +64,7 @@ public static class Gamecontroller
 
     else
     {
-      Application.LoadLevel(Application.loadedLevelName);
+      Application.LoadLevel(Application.loadedLevelName); // laad level --> string meegeven --> unity de levelnaam meegeven die we nu hebben tijdens het spelen (op zelfde level blijven dus)
     }
   }
 

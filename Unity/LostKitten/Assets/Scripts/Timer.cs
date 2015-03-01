@@ -26,7 +26,7 @@ public class Timer : MonoBehaviour {
 	  else   // als resterende tijd niet groter is dan 0, maar 0 zelf
 	  {
 	    timeLeft = 0;
-      Gamecontroller.GameOver(false); // als de tijd om is, en je hebt niet gewonnen, krijg je u game-over bericht(false = not won)
+      GameController.GameOver(false); // als de tijd om is, en je hebt niet gewonnen, krijg je u game-over bericht(false = not won)
 	  }
     // einde if else
 
