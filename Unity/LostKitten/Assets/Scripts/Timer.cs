@@ -5,84 +5,51 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour {
 
-  private float timeLeft;
-  public int totalTime = 90;
-  // For our timer we will use minutes and seconds
-  /*public float Seconds = 59;
-  public float Minutes = 0;*/
+  private float timeLeft;   // staat private, maar d.m.v constructors ga je er toch nog aan kunnen 
+  public int totalTime = 90;   // de speler krijgt 90 seconden / 1m30s om het level te halen
+  public Text displayObject;  // ?? is dit het aanmaken van de variabele om de timer-getallen op het scherm te hebben?
 
-  public Text displayObject;
 
 	void Start ()
 	{
-	  timeLeft = totalTime;
-
+	  timeLeft = totalTime;   // wanneer het spel star moet de timer gestart worden met het totale tijdstip/ en dus ook de time left
 	}
 
 
-	void Update ()
+	void Update () // per frame wordt er gekeken hoeveel seconden er nog over zijn
 	{
-	  if (timeLeft > 0)
+	  if (timeLeft > 0)   // als resterende tijd groter is dan 0
 	  {
-	    timeLeft -= Time.deltaTime; // de lengte van die frame in seconde, hoe lang die heeft geduurt, ervan aftrekken
+	    timeLeft -= Time.deltaTime; // timeLeft = timeLeft - time.deltaTime;   resterende tijd = resterende tijd - verstreken tijd?
 	  }
-	  else
+
+	  else   // als resterende tijd niet groter is dan 0, maar 0 zelf
 	  {
 	    timeLeft = 0;
       Gamecontroller.GameOver(false); // als de tijd om is, en je hebt niet gewonnen, krijg je u game-over bericht(false = not won)
 	  }
+    // einde if else
+
+
     displayObject.text = GetMinutes().ToString("00") +":" + GetSecondsPerMinute().ToString("00"); // we willen 2 getallen, en aanvullen met 0'en
-	  // This is if statement checks how many seconds there are to decide what to do.
-	  // If there are more than 0 seconds it will continue to countdown.
-	  // If not then it will reset the amount of seconds to 59 and handle the minutes;
-	  // Handling the minutes is very similar to handling the seconds.
-	  /*if(Seconds <= 0)
-		{
-			Seconds = 59;
-			if(Minutes >= 1)
-			{
-				Minutes--;
-			}
-			else
-			{
-				Minutes = 0;
-				Seconds = 0;
-				// This makes the guiText show the time as X:XX. ToString.("f0") formats it so there is no decimal place.
-				GameObject.Find("TimerText").guiText.text = Minutes.ToString("f0") + ":0" + Seconds.ToString("f0");
-			}
-		}
-		else
-		{
-			Seconds -= Time.deltaTime;
-		}
-		*/
-	  // These lines will make sure the time is shown as X:XX and not X:XX.XXXXXX
-	  /*if(Mathf.Round(Seconds) <= 9)
-		{
-			GameObject.Find("TimerText").guiText.text = Minutes.ToString("f0") + ":0" + Seconds.ToString("f0");
-		}
-		else
-		{
-			GameObject.Find("TimerText").guiText.text = Minutes.ToString("f0") + ":" + Seconds.ToString("f0");
-		}*/
+
 	}
 
-  //'k heb ff deze methods zo gezet, anders kon 'k ni runnen - Pepijn
 
 
-  private int GetSecondsPerMinute()
+  private int GetSecondsPerMinute()  // methode die de seconden terug geeft
   {
-    return GetTotalSeconds()%60;
+    return GetTotalSeconds()%60;  //totaal aantal seconden %60 = aantal minuten   --> bv  78%60 =  1.3      rest 1 minuten???
   }
 
 
-  private int GetMinutes()
+  private int GetMinutes()   // methode die minuten teruggeeft
   {
-    return GetTotalSeconds()/60;
+    return GetTotalSeconds()/60;   // totaal aantal seconden:60 =     bv-->   85:60= 1.4166   ?????? is het dan hier niet dat je % moet gebruiken?
   }
 
 
-  private int GetTotalSeconds()
+  private int GetTotalSeconds()   // methode die de timeLeft naar boven gaat afronden
   {
     return Mathf.CeilToInt(timeLeft); // dat gaat hij naar boven afronden en als int teruggeven
   }

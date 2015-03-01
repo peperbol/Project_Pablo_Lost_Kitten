@@ -4,13 +4,15 @@ using System.Collections.Generic;
 
 public class Lever : Activatable {
 
-  public Lever(int xPosition, int yPosition, GameObject parent) // public omdat iedereen het moet kunnen aanspreken
-    : base((GameObject) Resources.Load("Prefabs/Lever", typeof (GameObject)), xPosition, yPosition, parent)
+  public Lever(int xPosition, int yPosition, GameObject parent) // public: iedereen moet t kunnen aanspreken    De lever krijgt een x positie mee, een y positie, en gameobject parent 
+    : base((GameObject) Resources.Load("Prefabs/Lever", typeof (GameObject)), xPosition, yPosition, parent)  // hier load je de afb voor de lever in
   {
 
   }
 
-  private bool IsActivated = false;
+  private bool IsActivated = false;   // variabele bool is activated aanmaken en op beginwaarde false zetten ==> dus nog niet geactiveerd/gebruikt
+
+
 
   public override int Width // override : omdat er in entity al een abstract staat dat we nu aan het overschrijven zijn
   {
@@ -22,14 +24,18 @@ public class Lever : Activatable {
     get { return 4; }  //4 = de hoogte
   }
 
+
+
+              // var //name list
   private List<Block> area;  // aanmaken van een list van blocks -- hierin staan alle blokjes van u 1 kleur van waar je opstaat
+
 
   private bool IsInArea(Block blockToCheck) // methode om te kijken of u blokje al in de list zit. (als hij dezelfde kleur heeft)
   {
     foreach (Block block in area)
     {
 
-      if (block == blockToCheck)
+      if (block == blockToCheck)    // als 
       {
         return true;  // zegt: u blokje zit er al in
       }

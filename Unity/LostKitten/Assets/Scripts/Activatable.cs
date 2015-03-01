@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class Activatable : Entity { // je moet het uitbreiden om er iets aan te hebben. Je gaat er geen object van maken
+public abstract class Activatable : Entity { // je moet het uitbreiden om er iets aan te hebben.          abstract, Je gaat er geen object van maken
 
 
   protected Activatable(GameObject gameObject, int xPosition, int yPosition, GameObject parent) // hier geef je activatable parameters mee
