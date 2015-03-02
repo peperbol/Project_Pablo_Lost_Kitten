@@ -4,9 +4,9 @@ using System.Collections;
 public class Coordinates {
 
   //static constants voor de omzetting van vector3 position en co-ords
-  public const float XSCALE = 1f;
-  public const float YSCALE = -1f;
-  public const float ZVALUE = 0f;
+  public const float XSCALE = 1f; // aantal unity-units per x coordinaat
+  public const float YSCALE = -1f; // aantal unity-units per y coordinaat
+  public const float ZVALUE = 0f; // aantal unity-units per x coordinaat
 
   //fields
   private int xPosition = 0;
@@ -35,7 +35,7 @@ public class Coordinates {
     }
   }
 
-  public Coordinates Copy
+  public Coordinates Copy // maakt een kopie van deze instantie
   {
     get { return new Coordinates(XPosition,YPosition);}
   }

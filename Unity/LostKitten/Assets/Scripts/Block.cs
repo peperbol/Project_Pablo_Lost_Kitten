@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class Block : ObjectInScene {
   //fields
-  private BlockColor color; // kleur van e blok
-  private List<Entity> entities = new List<Entity>(); // een lijst van alle entities die zich momenteel op deze blok bevinden // moet nog veranderen
+  private BlockColor color; // kleur van de blok
+  private List<Entity> entities = new List<Entity>(); // een lijst van alle entities die zich momenteel op deze blok bevinden 
   
 
   //properties
@@ -15,7 +15,7 @@ public class Block : ObjectInScene {
     set { 
       color = value;
 
-      // vormt de juiste locatie van de nieuwe material. 
+      // vormt de juiste bestandslocatie van de nieuwe material. 
       string materialName = "Materials/Block_";
 
       switch (value) // neemt de juiste matierial suffix
@@ -45,7 +45,7 @@ public class Block : ObjectInScene {
     }
   }
 
-  public List<Entity> Entities //get property die de entity terug geeft
+  public List<Entity> Entities //get property die de lijst van entities terug geeft
   {
     get
     {

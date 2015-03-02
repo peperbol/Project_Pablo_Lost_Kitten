@@ -18,9 +18,11 @@ public class LevelTemplate
   //in het spel zelf worden de level templated ge deserialized uit een bestand dat vooraf word meegegeven.
   public LevelTemplate(Texture2D blocksTexture2D, Texture2D spectrum , EntityTemplate[] entities, int time)
   {
-     Entities = entities;
+    //kopieer van de constructor naar de klasse vars
+    Entities = entities;
     Time = time;
 
+    //berkenen uit de bitmap
     Width = blocksTexture2D.width;
     Height = blocksTexture2D.height;
     Blocks = new BlockColor[Width,Height];
@@ -30,7 +32,7 @@ public class LevelTemplate
     {
       for (int x = 0; x < Width; x++)
       {
-        Color currentPixel = blocksTexture2D.GetPixel(x, Height - 1 - y); //y begint onderaan te tellen met GetPixel
+        Color currentPixel = blocksTexture2D.GetPixel(x, Height - 1 - y); //y begint onderaan te tellen met GetPixel (reverse row order)
 
         //loop door het spectrum en check welek index er overeenkomt met de pixel;
         for (int i = 0; i < spectrum.width; i++)
@@ -42,6 +44,7 @@ public class LevelTemplate
         }
         // als de bitmap juist is opgestelt zou de Block[x,y] nu een waarde moeten hebben
         // het is gevaarlijk maar ook enkel voor devs bedoeld.
+        // anders zal de kleur rood zijn aangezien dit "default" is (1e element in de enum)
       }
     }
 
