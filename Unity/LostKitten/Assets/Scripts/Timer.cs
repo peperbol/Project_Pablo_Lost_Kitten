@@ -7,8 +7,8 @@ public class Timer : MonoBehaviour {
 
   private float timeLeft;   // staat private, maar d.m.v constructors ga je er toch nog aan kunnen 
   public int totalTime = 90;   // de speler krijgt 90 seconden / 1m30s om het level te halen
-  public Text displayObject;  // ?? is dit het aanmaken van de variabele om de timer-getallen op het scherm te hebben?
-
+  public Text displayObject;  // voor het aanmaken van de variabele om de timer-getallen op het scherm te hebben. staat in de inspector: klaar om aangepast te worden GUI component
+  // dit staat enkel public omdat het voor te testen handiger is om er in de inspector te kunnen aanpassen
 
 	void Start ()
 	{
@@ -20,7 +20,7 @@ public class Timer : MonoBehaviour {
 	{
 	  if (timeLeft > 0)   // als resterende tijd groter is dan 0
 	  {
-	    timeLeft -= Time.deltaTime; // timeLeft = timeLeft - time.deltaTime;   resterende tijd = resterende tijd - verstreken tijd?
+	    timeLeft -= Time.deltaTime; // timeLeft = timeLeft - time.deltaTime;    resterende tijd = vorige resterende tijd - verstreken tijd
 	  }
 
 	  else   // als resterende tijd niet groter is dan 0, maar 0 zelf
@@ -35,24 +35,27 @@ public class Timer : MonoBehaviour {
 
 	}
 
+  private int GetTotalSeconds()   // methode die de timeLeft naar boven gaat afronden
+  {
+    return Mathf.CeilToInt(timeLeft); // dat gaat hij naar boven afronden en als int teruggeven
+  }
+
+
 
 
   private int GetSecondsPerMinute()  // methode die de seconden terug geeft
   {
-    return GetTotalSeconds()%60;  //totaal aantal seconden %60 = aantal minuten   --> bv  78%60 =  1.3      rest 1 minuten???
+    return GetTotalSeconds()%60;  //totaal aantal seconden %60 = aantal minuten   --> bv  138%60 =  2.3    --> 0.3*60 = 18 seconden   (en 2 minuten)
   }
 
 
   private int GetMinutes()   // methode die minuten teruggeeft
   {
-    return GetTotalSeconds()/60;   // totaal aantal seconden:60 =     bv-->   85:60= 1.4166   ?????? is het dan hier niet dat je % moet gebruiken?
+    return Mathf.FloorToInt(GetTotalSeconds() / 60f);   // totaal aantal seconden:60  bv-->   85:60= 1.4166   en dit rond hij af naar onder (FloorToInt) ==> 1 
   }
 
 
-  private int GetTotalSeconds()   // methode die de timeLeft naar boven gaat afronden
-  {
-    return Mathf.CeilToInt(timeLeft); // dat gaat hij naar boven afronden en als int teruggeven
-  }
+
 
 
 
