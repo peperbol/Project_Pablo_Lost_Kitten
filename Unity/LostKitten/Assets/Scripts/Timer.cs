@@ -12,6 +12,7 @@ public class Timer : MonoBehaviour {
 
 	void Start ()
 	{
+	  totalTime = GameController.CurrentLevel.Template.Time; // gaat kijken in het template hoeveel tidj er ingestelt staat.
 	  timeLeft = totalTime;   // wanneer het spel star moet de timer gestart worden met het totale tijdstip/ en dus ook de time left
 	}
 

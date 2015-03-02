@@ -11,6 +11,11 @@ public class Level : BlockField
   private List<Entity> entities;
   private LevelTemplate template;
 
+  public LevelTemplate Template
+  {
+    get { return template; }
+  }
+
 
 
   //properties
@@ -104,8 +109,8 @@ public class Level : BlockField
         case EntityType.Slider:
           newEntity = null; //nog verder aanvullen
           break;
-        case EntityType.Button:
-          newEntity = null; //nog verder aanvullen
+        case EntityType.Lever:
+          newEntity = new Lever(entityT.X, entityT.Y, worldRoot);
           break;
         default:
           Debug.Log("Fout: EntityType is onbekend.");
