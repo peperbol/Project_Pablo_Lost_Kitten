@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Lever : Activatable {
-
+                                            // alle objects in scene ( blocks, enities, levers) zijn een child van de parent gameobject 'world'
   public Lever(int xPosition, int yPosition, GameObject parent) // public: iedereen moet t kunnen aanspreken    De lever krijgt een x positie mee, een y positie, en gameobject parent 
     : base((GameObject) Resources.Load("Prefabs/Lever", typeof (GameObject)), xPosition, yPosition, parent)  // hier load je de afb voor de lever in
-  {
+  {                                                     // parameter van rescources.Load, iets dat hij nodig heeft om de lever te kunnen laden
 
   }
 
@@ -16,12 +16,12 @@ public class Lever : Activatable {
 
   public override int Width // override : omdat er in entity al een abstract staat dat we nu aan het overschrijven zijn
   {
-    get { return 4; } // 4 = breedte
+    get { return 2; } // 2 = breedte
   }
 
   public override int Height
   {
-    get { return 4; }  //4 = de hoogte
+    get { return 2; }  //2 = de hoogte
   }
 
 
