@@ -67,5 +67,21 @@ public static class GameController//static class zodat je deze variabelen over a
     }
   }
 
-  
+
+
+  public static void LoadLevel(string nameFileLevel) //methode om ons Level te laden
+  {
+
+    string nameScene = "Level"; //variabele om de naam van de scene in te steken
+
+
+    //scene laden
+    Application.LoadLevel(nameScene); //laden van de scene 
+
+
+    //level erin steken (steekt zichzelf erin)
+    new Level(FileReaderWriter.GetLevelTemplate(nameFileLevel)); //hier maken we een nieuw level aan (constructor) gebruiken methode om template uit de file (bv."04") te halen
+
+  }
+
 }//einde klasse
