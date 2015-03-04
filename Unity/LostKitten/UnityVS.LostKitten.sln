@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.LostKitten.CSharp", "UnityVS.LostKitten.CSharp.csproj", "{E21CDAC6-226F-5316-D49D-CE6956947A2F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnityVS.LostKitten.CSharp.Editor", "UnityVS.LostKitten.CSharp.Editor.csproj", "{51D0509D-97E7-8440-6C47-CC9D10E1FCC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{E21CDAC6-226F-5316-D49D-CE6956947A2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E21CDAC6-226F-5316-D49D-CE6956947A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E21CDAC6-226F-5316-D49D-CE6956947A2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51D0509D-97E7-8440-6C47-CC9D10E1FCC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51D0509D-97E7-8440-6C47-CC9D10E1FCC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51D0509D-97E7-8440-6C47-CC9D10E1FCC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51D0509D-97E7-8440-6C47-CC9D10E1FCC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
