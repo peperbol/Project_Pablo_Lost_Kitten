@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Runtime.Remoting;
 using System.Xml.Linq;
 
 
@@ -43,6 +44,11 @@ public class InputController : MonoBehaviour
             GameController.PlayerInGame.Move(Direction.Down);
           }
         }
+
+      if (Input.GetButton("Activate"))
+      {
+        GameController.PlayerInGame.CheckForActivables();
+      }
 
     } // einde if time
 

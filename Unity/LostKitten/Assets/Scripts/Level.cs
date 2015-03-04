@@ -11,6 +11,11 @@ public class Level : BlockField
   private List<Entity> entities;
   private LevelTemplate template;
 
+  public LevelTemplate Template
+  {
+    get { return template; }
+  }
+
 
 
   //properties
@@ -20,21 +25,21 @@ public class Level : BlockField
   }
 
   public int Width {
-    get { return grid.GetLength(0); }
+    get { return grid.GetLength(0); } // 0  => 1e dimentie is de breette
   }
   public int Height
   {
-    get { return grid.GetLength(1); }
+    get { return grid.GetLength(1); } // 1 => 2e dimentie is de hoogte
   }
 
   //Constuctor
   public Level (LevelTemplate levelTemplate)
   {
-    GameController.CurrentLevel = this;
-    worldRoot = GameObject.FindWithTag("WorldRoot");
-    template = levelTemplate;
-    BuildLevel();
-    SetCameraPosition();
+    GameController.CurrentLevel = this; // zet zich zelf als het huidige level
+    worldRoot = GameObject.FindWithTag("WorldRoot"); // neemt de worldroot om mee te geven aan de objecten die hij gaat genereren
+    template = levelTemplate; // onthoud het template in ene klasse variable
+    BuildLevel(); // bouwt heel het level en instantiate een hoop dingen en maakt een hoob objecten
+    SetCameraPosition(); // zet de camera juist
   }
 
 
@@ -45,18 +50,18 @@ public class Level : BlockField
   public Block[,] GetPartOfGrid(Coordinates position, int width, int heigth) 
   {
     //check of de opgevraagde area valid is, 
-    if (position.XPosition + width -1 <= Width && position.YPosition + heigth -1 <= Height)
+    if (position.XPosition + width -1 <= Width && position.YPosition + heigth -1 <= Height) // chackt of de blockjes binnen het leve liggen
     {
-      Block[,] part = new Block[width, heigth];
+      Block[,] part = new Block[width, heigth]; // maakt een array met de goede grootte, waarin we de blokjes gana steken
       //kopieer de blocks
-      for (int y = 0; y < heigth; y++)
+      for (int y = 0; y < heigth; y++) 
       {
-        for (int x = 0; x < width; x++)
-        {
-          part[x, y] = grid[position.XPosition + x , position.YPosition + y];
+        for (int x = 0; x < width; x++)//geneste 2D loop
+        { 
+          part[x, y] = grid[position.XPosition + x , position.YPosition + y]; // neemt de blokjes over naar de nieuwe array
         }
       }
-      return part;
+      return part;//geef de array terug
 
     }
     else
@@ -69,14 +74,14 @@ public class Level : BlockField
 //bouwt heel het level op vanuit het template
   public void BuildLevel() 
   {
-    //remove all old children
+    //verwijder alle oude kinderen
     for (int i = 0; i < worldRoot.transform.childCount; i++)
     {
       GameObject.Destroy(worldRoot.transform.GetChild(i));
       
     }
 
-    //new blocks
+    //maakt voor elk element in de grid van de template een nieuwe block met bijpassende kleur. deze blokken zullen zelf zich in de scene zetten in de constructor
     grid = new Block[template.Width,template.Height];
 
     for (int y = 0; y < template.Height; y++)
@@ -90,10 +95,10 @@ public class Level : BlockField
     //new entities
     entities = new List<Entity>();
 
-    foreach (EntityTemplate entityT in template.Entities)
+    foreach (EntityTemplate entityT in template.Entities) // voor elke entity die in de template staat gaat hij een nieuwe entity maken.
     {
       Entity newEntity ;
-      switch (entityT.Type)
+      switch (entityT.Type) //afhankelijk van het type entity gaat deze een andere constructor aanspreken
       {
         case EntityType.Player:
           newEntity = new Player(entityT.X, entityT.Y, worldRoot);
@@ -104,8 +109,8 @@ public class Level : BlockField
         case EntityType.Slider:
           newEntity = null; //nog verder aanvullen
           break;
-        case EntityType.Button:
-          newEntity = null; //nog verder aanvullen
+        case EntityType.Lever:
+          newEntity = new Lever(entityT.X, entityT.Y, worldRoot);
           break;
         default:
           Debug.Log("Fout: EntityType is onbekend.");
@@ -113,7 +118,7 @@ public class Level : BlockField
           break;
       }
 
-      if (newEntity != null)
+      if (newEntity != null) // normaal gezien lukt dit maar toch om zeker te zijn
       {
         entities.Add(newEntity);
       }
@@ -128,8 +133,10 @@ public class Level : BlockField
 
   public void SetCameraPosition()
   {
-    Camera.main.transform.position = new Vector3(Width / 2f, - Height / 2f, Camera.main.transform.position.z);
-    Camera.main.orthographicSize = Height / 2f;
+    // centreerd de camera volgens de juiste schaling en grootte van het level
+    Camera.main.transform.position = new Vector3(Width / 2f * Coordinates.XSCALE, Height / 2f * Coordinates.YSCALE, Camera.main.transform.position.z); 
+    // zet de FOV gelijk met de hoogte van het level.
+    Camera.main.orthographicSize = Math.Abs( Height / 2f * Coordinates.YSCALE );
   }
 
 

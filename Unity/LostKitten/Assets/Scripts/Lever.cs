@@ -55,8 +55,8 @@ public class Lever : Activatable {
       area.Add(focusBlock); // als hij inderdaad dezelfde kleur heeft dan mag hij in de list
 
 
-
-      ScanForAdjacentBlocks(  // heeft 3 parameters (GameController/focusblock   , color   ,  area)
+      if (focusBlock.Coordinate.YPosition > 0) { 
+        ScanForAdjacentBlocks(  // heeft 3 parameters (GameController/focusblock   , color   ,  area)
                          
                           GameController.CurrentLevel.GetPartOfGrid( // getPartOfGrid geeft een 2D array terug en heeft 2 parameters
                                       new Coordinates(focusBlock.Coordinate.XPosition, focusBlock.Coordinate.YPosition - 1),  //Linkerboven co-ordinaten  
@@ -66,9 +66,10 @@ public class Lever : Activatable {
                           color
                           ); // block er boven
                 // wanneer deze is afgelopen en alle bovenstaande blokken zitten in de lijst, gaan we verder naar hieronder
-
-              // hier start je verder in de laatste focusblock
-      ScanForAdjacentBlocks(  // heeft 3 parameters (GameController/focusblock   , color   ,  area)
+      }
+      if (focusBlock.Coordinate.YPosition < GameController.CurrentLevel.Height - 1) { //checked of de focusblok niet op de onderste rij zit. je doet de hoogte van het actieve level -1 om de index van de onderste rij te bekomen
+        // hier start je verder in de laatste focusblock
+        ScanForAdjacentBlocks(  // heeft 3 parameters (GameController/focusblock   , color   ,  area)
                           GameController.CurrentLevel.GetPartOfGrid( // getPartOfGrid geeft een 2D array terug en heeft 2 parameters
                                       new Coordinates(focusBlock.Coordinate.XPosition, focusBlock.Coordinate.YPosition+1),
                                       1,                                                   //Ypos + 1 = gaat in u grid 1 naar onder gaan. bv als hij p 12 staat --> 12+1=13
@@ -76,7 +77,10 @@ public class Lever : Activatable {
                                )[0, 0],         // dit is de focusblock die linksboven in de array(van 1) staat                                          
                           color
                           ); // block er onder
-     ScanForAdjacentBlocks(  // heeft 3 parameters (GameController/focusblock   , color   ,  area )
+      }
+
+      if (focusBlock.Coordinate.XPosition > 0) { 
+        ScanForAdjacentBlocks(  // heeft 3 parameters (GameController/focusblock   , color   ,  area )
                           GameController.CurrentLevel.GetPartOfGrid( // getPartOfGrid geeft een 2D array terug en heeft 2 parameters
                                       new Coordinates(focusBlock.Coordinate.XPosition-1, focusBlock.Coordinate.YPosition),
                                       1,                                                //Xpos - 1 = gaat in u grid 1 naar links gaan. bv als hij p 12 staat --> 12-1=11
@@ -84,7 +88,9 @@ public class Lever : Activatable {
                               )[0, 0],       // dit is de focusblock die linksboven in de array(van 1) staat                       
                           color
                           ); // block er links van
-      ScanForAdjacentBlocks(   // heeft 3 parameters (GameController/focusblock   , color   ,  area)
+      }
+      if (focusBlock.Coordinate.XPosition < GameController.CurrentLevel.Width - 1) { 
+        ScanForAdjacentBlocks(   // heeft 3 parameters (GameController/focusblock   , color   ,  area)
                           GameController.CurrentLevel.GetPartOfGrid( // getPartOfGrid geeft een 2D array terug en heeft 2 parameters
                                       new Coordinates(focusBlock.Coordinate.XPosition+1, focusBlock.Coordinate.YPosition),
                                       1,                                                        //Xpos + 1 = gaat in u grid 1 naar rechts gaan. bv als hij p 12 staat --> 12+1=13
@@ -92,6 +98,7 @@ public class Lever : Activatable {
                               )   [0, 0],   // dit is de focusblock die linksboven in de array(van 1) staat                           
                           color
                           ); // block er rechts van
+      }
     }// einde if
   } //  einde methode
 

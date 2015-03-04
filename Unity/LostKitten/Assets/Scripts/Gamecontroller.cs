@@ -56,7 +56,6 @@ public static class GameController//static class zodat je deze variabelen over a
 //methoden
   public static void GameOver(bool won) //om het spel te laten stoppen (naar levels pagina)
   {
-    Debug.Log(won); 
     if (won)
     {
      Application.Quit();
