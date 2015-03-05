@@ -77,7 +77,7 @@ public class Level : BlockField
     //verwijder alle oude kinderen
     for (int i = 0; i < worldRoot.transform.childCount; i++)
     {
-      GameObject.Destroy(worldRoot.transform.GetChild(i));
+      GameObject.Destroy(worldRoot.transform.GetChild(i).gameObject);
       
     }
 

@@ -68,7 +68,7 @@ public class testscript : MonoBehaviour
         )
       );
 
-    new Level(FileReaderWriter.GetLevelTemplate("04")) ;
+    new Level(FileReaderWriter.GetLevelTemplate("02")) ;
 	}
 	
 	// Update is called once per frame
