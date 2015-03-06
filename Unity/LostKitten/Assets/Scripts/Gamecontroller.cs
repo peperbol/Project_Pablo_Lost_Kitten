@@ -13,6 +13,7 @@ public static class GameController//static class zodat je deze variabelen over a
     
   //private variabelen
   private static Level currentLevel;
+  private static string currentLevelName;
   private static Player player;
   private static Timer timer;
   private static bool inGame;
@@ -26,6 +27,14 @@ public static class GameController//static class zodat je deze variabelen over a
   {
     get { return currentLevel; }
     set { currentLevel = value; } 
+  }
+
+
+
+  public static string CurrentLevelName //een string waar de naam van level waar je in zit wordt bijgehouden --> als je je scene gaat laden dan haalt (als de scene geladen is) hij hieruit u level dat geladen moet worden
+  {
+    get { return CurrentLevelName; }
+
   }
 
 
@@ -54,7 +63,7 @@ public static class GameController//static class zodat je deze variabelen over a
 
 
 //methoden
-  public static void GameOver(bool won) //om het spel te laten stoppen (naar levels pagina)
+  public static void GameOver(bool won) //om het spel te laten stoppen
   {
     if (won)
     {
@@ -69,19 +78,26 @@ public static class GameController//static class zodat je deze variabelen over a
 
 
 
-  public static void LoadLevel(string nameFileLevel) //methode om ons Level te laden
+  public static void LoadLevel(string nameFileLevel) //methode om ons Level te laden, nameFileLevel = naam van het level dat je probeert te spelen (waar je op klikt in het Level overzicht)
   {
 
-    string nameScene = "Level"; //variabele om de naam van de scene in te steken
+
+    if (Int32.Parse("00") + 1 >= Int32.Parse(nameFileLevel)) //.parse --> string omzetten naar een int, als 00 = --> +1 ga je het eerste level (01) spelen. Bv je hebt level 2 uitgespeeld en kan nu level 3 spelen (stuk voor ">=" = 03) en je klikt op level 5 (stuk na de ">=", nameFileLevel = 05) --> is 03 groter of gelijk aan 05? nee, false --> gaat deze methode niet uitvoeren (gaat de scene en het level waar je op geklikt hebt niet gaan laden)
+    {
+
+      string nameScene = "Level"; //variabele om de naam van de scene in te steken
 
 
-    //scene laden
-    Application.LoadLevel(nameScene); //laden van de scene 
+      //scene laden
+      Application.LoadLevel(nameScene); //laden van de scene --> gaan bij ons om te spelen altijd de scene Level laden, maar je moet die optie available laten
 
 
-    //level erin steken (steekt zichzelf erin)
-    new Level(FileReaderWriter.GetLevelTemplate(nameFileLevel)); //hier maken we een nieuw level aan (constructor) gebruiken methode om template uit de file (bv."04") te halen
+      //de waarde van level meegeven (zeggen welk level we nu moeten tonen)
+      currentLevelName = nameFileLevel; //hier steken we de naam die we meegeven met de methode in onze (private) variabele van currentLevelName
 
-  }
+    }
+
+  }//einde methode
+
 
 }//einde klasse
