@@ -93,7 +93,7 @@ public static class FileReaderWriter
 
 
 
-    if (!File.Exists(readwritefolder + slash + fileName))
+    if (File.Exists(readwritefolder + slash + fileName))
     {
       // nu gaan we het effectief van file naar object omzetten
 
@@ -170,12 +170,7 @@ public static class FileReaderWriter
           File.Copy(sourcePath, destinationPath, true);
 
         }//einde if
-
-
-        else
-        {
-          Debug.Log("ERROR: the file DB named " + fileName + " doesn't exist in the StreamingAssets Folder, please copy it there.");
-        }
+          
       }//einde nakijken of het bestaat
     
   }//einde methode
