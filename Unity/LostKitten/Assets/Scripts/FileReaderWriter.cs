@@ -8,6 +8,7 @@ public static class FileReaderWriter
 {
   private static string levelDirectory = "Levels/"; // de map waarin levels worden bewaard
   private static string levelExtention = ".dat"; //extantie van de levels
+  private static string progressFile = "progress.dat"; // bestand waar je vooruitgang (huidig level) is staat opgelsagen
   private static string readwritefolder = Application.persistentDataPath ; // is in windows <je gebruiker>/Appdata/locallow/projectpablo/lostkitten
   private static string slash = "/";
 
@@ -48,15 +49,46 @@ public static class FileReaderWriter
     stream.Close();
   }
 
-  public static object GetRoadMap(string levelName)
+  public static String GetProgress()
   {
-    return null;
+    string fileName = progressFile;//relatieve plek/naam van het bestand
+
+    // als het er nog niet staat (1st boot ofzo) kan hij het kopieren uit de "streaming assets" (deel dan de unity bestanden)
+    // hij doet dit dan eerst
+    if (!File.Exists(readwritefolder + slash + fileName))
+    {
+      UnpackFile(fileName);
+    }
+
+    if (!File.Exists(readwritefolder + slash + fileName))
+    {
+      // nu gaan we het effectief van file naar object omzetten
+
+      string levelName; //nieuwe variable om het object in te steken
+
+      //lees de file
+      FileStream stream = File.Open(readwritefolder + slash + fileName, FileMode.Open);
+      //zet om naar obj en stop het in de variable
+      BinaryFormatter bformatter = new BinaryFormatter();
+      levelName = (string) bformatter.Deserialize(stream);
+
+      stream.Close(); // en afsluiten
+
+      return levelName;
+    }
+
+    return "00";
   }
 
-  public static int GetProgress(string levelName)
+  public static void SetProgress(string progress)
   {
-    return 0;
+    BinaryFormatter bf = new BinaryFormatter();
+    FileStream stream = File.Create(readwritefolder + slash + progressFile);
+    bf.Serialize(stream, progress);
+    stream.Close();
   }
+
+
 
   // wanneer een bestand nog niet in de persistend data zit, zal dit eerst moeten worden gekopieerd. ook vooral voor als het later voor android zou worden geport
   // aangepast uit de code uit volgende UnityAnswers tread
