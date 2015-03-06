@@ -54,7 +54,7 @@ public class testscript : MonoBehaviour
     FileReaderWriter.SaveLevelTemplate(
         "04", //naam
         new LevelTemplate(
-            Resources.Load<Texture2D>("Temp/level04"),
+            Resources.Load<Texture2D>("Temp/level04v2"),
             Resources.Load<Texture2D>("Temp/spectrum"),
 
             new EntityTemplate[] //lijst van entities
@@ -68,7 +68,7 @@ public class testscript : MonoBehaviour
         )
       );
 
-    new Level(FileReaderWriter.GetLevelTemplate("02")) ;
+    new Level(FileReaderWriter.GetLevelTemplate("04")) ;
 	}
 	
 	// Update is called once per frame
