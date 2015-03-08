@@ -50,7 +50,7 @@ public class testscript : MonoBehaviour
               90 //tijd van het level
          )
        );
-    
+    */
     FileReaderWriter.SaveLevelTemplate(
         "04", //naam
         new LevelTemplate(
@@ -67,8 +67,8 @@ public class testscript : MonoBehaviour
              120 //tijd van het level
         )
       );
-      */
-
+      
+    /*
     FileReaderWriter.SaveLevelTemplate(
         "05", //naam
         new LevelTemplate(
@@ -88,8 +88,8 @@ public class testscript : MonoBehaviour
              150 //tijd van het level
         )
       );
-
-    new Level(FileReaderWriter.GetLevelTemplate("05")) ;
+    */
+    new Level(FileReaderWriter.GetLevelTemplate("04")) ;
 	}
 	
 	// Update is called once per frame
