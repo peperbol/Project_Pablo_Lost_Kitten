@@ -101,7 +101,7 @@ public static class GameController//static class zodat je deze variabelen over a
   {
 
 
-    if (Int32.Parse("00") + 1 >= Int32.Parse(nameFileLevel)) //.parse --> string omzetten naar een int, als 00 = --> +1 ga je het eerste level (01) spelen. Bv je hebt level 2 uitgespeeld en kan nu level 3 spelen (stuk voor ">=" = 03) en je klikt op level 5 (stuk na de ">=", nameFileLevel = 05) --> is 03 groter of gelijk aan 05? nee, false --> gaat deze methode niet uitvoeren (gaat de scene en het level waar je op geklikt hebt niet gaan laden)
+    if (Int32.Parse(FileReaderWriter.GetProgress()) + 1 >= Int32.Parse(nameFileLevel)) //.parse --> string omzetten naar een int, als 00 = --> +1 ga je het eerste level (01) spelen. Bv je hebt level 2 uitgespeeld en kan nu level 3 spelen (stuk voor ">=" = 03) en je klikt op level 5 (stuk na de ">=", nameFileLevel = 05) --> is 03 groter of gelijk aan 05? nee, false --> gaat deze methode niet uitvoeren (gaat de scene en het level waar je op geklikt hebt niet gaan laden)
     {
 
       string nameScene = "Level"; //variabele om de naam van de scene in te steken

@@ -106,8 +106,9 @@ public class Level : BlockField
         case EntityType.Exit:
           newEntity = new Exit(entityT.X, entityT.Y, worldRoot);
           break;
-        case EntityType.Slider:
-          newEntity = null; //nog verder aanvullen
+        case EntityType.Teleporter:
+          newEntity = new Teleporter(entityT.X,entityT.Y, worldRoot, new Coordinates((int)entityT.ExtraData[0],(int)entityT.ExtraData[1])); 
+        //need commentzzz
           break;
         case EntityType.Lever:
           newEntity = new Lever(entityT.X, entityT.Y, worldRoot);
