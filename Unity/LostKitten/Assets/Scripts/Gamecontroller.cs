@@ -91,7 +91,7 @@ public static class GameController//static class zodat je deze variabelen over a
 
     else//als je verloren bent
     {
-      Application.LoadLevel(Application.loadedLevelName); // laad level --> string meegeven --> unity de levelnaam meegeven die we nu hebben tijdens het spelen (op zelfde level blijven dus)
+      Application.LoadLevel("GameOver"); //GameOver Scene laden (hierin kan je terug naar de roadmap of naar het currentLevel)
     }
   }
 
