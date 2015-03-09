@@ -16,12 +16,12 @@ public class Lever : Activatable {
 
   public override int Width // override : omdat er in entity al een abstract staat dat we nu aan het overschrijven zijn
   {
-    get { return 2; } // 2 = breedte
+    get { return 3; } // 2 = breedte
   }
 
   public override int Height
   {
-    get { return 2; }  //2 = de hoogte
+    get { return 3; }  //2 = de hoogte
   }
 
 
