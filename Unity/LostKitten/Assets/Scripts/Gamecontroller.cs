@@ -33,7 +33,7 @@ public static class GameController//static class zodat je deze variabelen over a
 
   public static string CurrentLevelName //een string waar de naam van level waar je in zit wordt bijgehouden --> als je je scene gaat laden dan haalt (als de scene geladen is) hij hieruit u level dat geladen moet worden
   {
-    get { return CurrentLevelName; }
+    get { return currentLevelName; }
 
   }
 
@@ -65,12 +65,31 @@ public static class GameController//static class zodat je deze variabelen over a
 //methoden
   public static void GameOver(bool won) //om het spel te laten stoppen
   {
-    if (won)
+    if (won) //je hebt net een level gespeeld en gewonnen. Nu moeten we kijken of je nog nooit zo ver bent geraakt -> dan is dit je nieuwste progress (en moet die aangepast worden), of als je dit spel al eerder gewonnen had, blijft de progress hetzelfde.
+     
     {
-     Application.Quit();
-    }
+     
+      //huidige progress opvragen (hoe ver ben je al geraakt tot nu toe?)
+      int progressLevelInt = Int32.Parse(FileReaderWriter.GetProgress()); //het hoogste level dat je al hebt gehaald
 
-    else
+
+      //huidig level dat je net gewonnen hebt opvragen
+      int currentLevelNameInt = Int32.Parse(CurrentLevelName);
+
+      //checken of het level dat je net hebt gewonnen hoger is dan je progress (nog nooit zo ver geraakt dus)
+      if (currentLevelNameInt > progressLevelInt)
+      {
+
+        FileReaderWriter.SetProgress(CurrentLevelName);//huidig level saven als nieuwe progress
+
+      }
+
+      Application.LoadLevel("Roadmap"); //naar de roadmap gaan (sowieso)
+
+
+    }//einde if won
+
+    else//als je verloren bent
     {
       Application.LoadLevel(Application.loadedLevelName); // laad level --> string meegeven --> unity de levelnaam meegeven die we nu hebben tijdens het spelen (op zelfde level blijven dus)
     }
