@@ -54,7 +54,7 @@ public class testscript : MonoBehaviour
     FileReaderWriter.SaveLevelTemplate(
         "04", //naam
         new LevelTemplate(
-            Resources.Load<Texture2D>("Temp/level04v2"),
+            Resources.Load<Texture2D>("Temp/level04v3"),
             Resources.Load<Texture2D>("Temp/spectrum"),
 
             new EntityTemplate[] //lijst van entities
@@ -62,7 +62,7 @@ public class testscript : MonoBehaviour
                  new EntityTemplate(11, 30, EntityType.Lever),
                  new EntityTemplate(69, 51, EntityType.Lever),
                  new EntityTemplate(16, 64, EntityType.Player),
-                 new EntityTemplate(77, 30, EntityType.Exit)
+                 new EntityTemplate(69, 65, EntityType.Exit)
                },
              120 //tijd van het level
         )
