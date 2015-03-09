@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Activatable">
+    <Position X="3.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Activatable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Block">
+    <Position X="3" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAABAAAAAAAAAQCAAIEAgAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Block.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ColorSpectrum">
+    <Position X="5" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAABAAAAAABAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ColorSpectrum.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Coordinates">
+    <Position X="9.5" Y="19" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IIAAAEIAAABAAAAAAACAAAQAAgAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Coordinates.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entity">
+    <Position X="6.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAABAIAAAAgAAAAAEAAAAgAAAAAAAAAAAAAYAg=</HashCode>
+      <FileName>Assets\Scripts\Entity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EntityTemplate">
+    <Position X="4.25" Y="19" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIQAAAAAAYAA=</HashCode>
+      <FileName>Assets\Scripts\EntityTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Exit">
+    <Position X="9.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Assets\Scripts\Exit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FileReaderWriter">
+    <Position X="6.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAQIAAAgAAICBCBAAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Assets\Scripts\FileReaderWriter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameController">
+    <Position X="3.25" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAAAAAAAQAAAAAAAAEAAAECAIBBEgAgAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Gamecontroller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputController">
+    <Position X="11" Y="14.5" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>gAQAAAAAEAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\InputController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Level" BaseTypeListCollapsed="true">
+    <Position X="6" Y="19" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAgAABEIAAABAAAAAAEAAAAAAARAQAIAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Level.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="LevelTemplate">
+    <Position X="7.75" Y="19" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAABAAAAAAAAAAAAEAAAAAAAAAAAAEAAAAAAQA=</HashCode>
+      <FileName>Assets\Scripts\LevelTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lever">
+    <Position X="2" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAABAAAAADAAAAAAEAAIAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Assets\Scripts\Lever.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ObjectInScene">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAQAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ObjectInScene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player">
+    <Position X="6.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABIAAAAAgAAAAAEgAAACAAAAAAAEAAAABAAA=</HashCode>
+      <FileName>Assets\Scripts\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Teleporter">
+    <Position X="4.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAABAAAAAAEAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Teleporter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Timer">
+    <Position X="9.25" Y="14.5" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAASAIAAAAAAAAAAAAAQQAAAAAAAQAAQAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Timer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
