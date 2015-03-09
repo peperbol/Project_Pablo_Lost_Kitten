@@ -399,7 +399,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1145209359}
-        m_MethodName: onClick
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -450,8 +450,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058664b71e1347341baef0a0972130c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneToLoad: Start
-  IsLevel: 0
+  sceneToLoad: Start
+  isLevel: 0
+  useCurrentLevel: 0
 --- !u!1 &1903924122
 GameObject:
   m_ObjectHideFlags: 0

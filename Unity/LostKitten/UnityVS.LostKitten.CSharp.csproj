@@ -55,7 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Activatable.cs" />
-    <Compile Include="Assets\Scripts\Axis.cs" />
     <Compile Include="Assets\Scripts\Block.cs" />
     <Compile Include="Assets\Scripts\BlockColor.cs" />
     <Compile Include="Assets\Scripts\BlockField.cs" />
@@ -67,15 +66,18 @@
     <Compile Include="Assets\Scripts\EntityType.cs" />
     <Compile Include="Assets\Scripts\Exit.cs" />
     <Compile Include="Assets\Scripts\FileReaderWriter.cs" />
-    <Compile Include="Assets\Scripts\GameController.cs" />
+    <Compile Include="Assets\Scripts\Gamecontroller.cs" />
     <Compile Include="Assets\Scripts\InputController.cs" />
     <Compile Include="Assets\Scripts\Level.cs" />
     <Compile Include="Assets\Scripts\LevelTemplate.cs" />
     <Compile Include="Assets\Scripts\Lever.cs" />
+    <Compile Include="Assets\Scripts\LoadLevel.cs" />
     <Compile Include="Assets\Scripts\LoadSceneButton.cs" />
     <Compile Include="Assets\Scripts\ObjectInScene.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\RoadMap.cs" />
     <Compile Include="Assets\Scripts\ScalingText.cs" />
+    <Compile Include="Assets\Scripts\Teleporter.cs" />
     <Compile Include="Assets\Scripts\Timer.cs" />
     <Compile Include="Assets\Scripts\testscript.cs" />
     <Compile Include="Assets\SpaceNavigator\Plugins\QuaternionExtensions.cs" />

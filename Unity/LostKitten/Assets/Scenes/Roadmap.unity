@@ -901,7 +901,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 30, y: -30}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 80, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &836299851
 MonoBehaviour:
@@ -943,7 +943,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 836299854}
-        m_MethodName: onClick
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -994,8 +994,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058664b71e1347341baef0a0972130c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneToLoad: Start
-  IsLevel: 0
+  sceneToLoad: Start
+  isLevel: 0
+  useCurrentLevel: 0
 --- !u!1 &847726727
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,8 +1106,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058664b71e1347341baef0a0972130c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneToLoad: 02
-  IsLevel: 1
+  sceneToLoad: 02
+  isLevel: 1
+  useCurrentLevel: 0
 --- !u!222 &960082610
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1153,7 +1155,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 960082609}
-        m_MethodName: onClick
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1214,8 +1216,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058664b71e1347341baef0a0972130c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneToLoad: 05
-  IsLevel: 1
+  sceneToLoad: 05
+  isLevel: 1
+  useCurrentLevel: 0
 --- !u!222 &984444080
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1262,7 +1265,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 984444079}
-        m_MethodName: onClick
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1384,8 +1387,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058664b71e1347341baef0a0972130c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneToLoad: 01
-  IsLevel: 1
+  sceneToLoad: 01
+  isLevel: 1
+  useCurrentLevel: 0
 --- !u!222 &1067943452
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1432,7 +1436,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1067943451}
-        m_MethodName: onClick
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1727,8 +1731,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058664b71e1347341baef0a0972130c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneToLoad: 04
-  IsLevel: 1
+  sceneToLoad: 04
+  isLevel: 1
+  useCurrentLevel: 0
 --- !u!222 &1605087365
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1775,7 +1780,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1605087364}
-        m_MethodName: onClick
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1836,8 +1841,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058664b71e1347341baef0a0972130c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneToLoad: 03
-  IsLevel: 1
+  sceneToLoad: 03
+  isLevel: 1
+  useCurrentLevel: 0
 --- !u!222 &1665188977
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1884,7 +1890,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1665188976}
-        m_MethodName: onClick
+        m_MethodName: OnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
