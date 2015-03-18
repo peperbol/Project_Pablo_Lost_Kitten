@@ -7,11 +7,16 @@ public class LoadSceneButton : MonoBehaviour
   public string sceneToLoad;
   public bool isLevel = false;
   public bool useCurrentLevel = false;
+  public bool quitGame = false;
 
 
   public void OnClick()
   {
-    if (!isLevel)//als je niet op een bepaald level klikt om te spelen
+    if (quitGame)
+    {
+      Application.Quit();
+    }
+    else if (!isLevel)//als je niet op een bepaald level klikt om te spelen
     {
     Application.LoadLevel(sceneToLoad);//de scene laden die je wilt laden met de button
     }
