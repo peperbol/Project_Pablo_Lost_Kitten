@@ -30,7 +30,7 @@ public class Lever : Activatable {
   private List<Block> area;  // aanmaken van een list van blocks -- hierin staan alle blokjes van u 1 kleur van waar je opstaat
 
 
-  private bool IsInArea(Block blockToCheck) // methode om te kijken of u blokje al in de list zit. (als hij dezelfde kleur heeft)
+  private bool IsInArea(Block blockToCheck) // methode om te kijken of u blokje al in de list zit. (als hij dezelfde kleur heeft) return= is true/false
   {
     foreach (Block block in area)
     {

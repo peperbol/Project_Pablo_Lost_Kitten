@@ -35,7 +35,7 @@ public class Timer : MonoBehaviour {
     displayObject.text = GetMinutes().ToString("00") +":" + GetSecondsPerMinute().ToString("00"); // we willen 2 getallen, en aanvullen met 0'en
 
 	}
-
+  // deze aanmaken voor in methodes hier onder te gebruiken
   private int GetTotalSeconds()   // methode die de timeLeft naar boven gaat afronden
   {
     return Mathf.CeilToInt(timeLeft); // dat gaat hij naar boven afronden en als int teruggeven
