@@ -8,7 +8,7 @@ using System.Collections;
  */
 
 
-public abstract class Entity : ObjectInScene, BlockField{
+public abstract class Entity : ObjectInScene {
 
   //constructor
   //protected omdat het een abstracte klasse is --> geen object hiervan aanmaken dus public is niet nodig (mag wel) private gaat ook niet natuurlijk want je hebt hem wel nodig in je subklasses
