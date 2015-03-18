@@ -7,7 +7,8 @@ public class LoadLevel : MonoBehaviour {
 	void Start ()
 	{
 
-	  new Level(FileReaderWriter.GetLevelTemplate(GameController.CurrentLevelName)); //In FileReaderWriter hebben we een methode GetLevelTemplate waar je de naam van het Level dat je moet laden meegeeft, hij zoekt dan naar die file en laad het Level.
+	  new Level(FileReaderWriter.GetLevelTemplate(GameController.CurrentLevelName)); 
+    //In FileReaderWriter: methode GetLevelTemplate: naam van het Level dat je moet laden meegeeft, hij zoekt dan naar die file en laad het Level.
 
 	}
 	
