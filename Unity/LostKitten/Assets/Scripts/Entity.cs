@@ -8,7 +8,7 @@ using System.Collections;
  */
 
 
-public abstract class Entity : ObjectInScene, BlockField{
+public abstract class Entity : ObjectInScene {
 
   //constructor
   protected Entity(GameObject gameObject, int xPosition, int yPosition, GameObject parent)// gameobject --> prefab die je gebruikt voor de entity, positie waar de entity gaat staan, de parent bv world

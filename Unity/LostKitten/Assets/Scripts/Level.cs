@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Level : BlockField
+public class Level 
 {
   //fields
   private Block[,] grid;
