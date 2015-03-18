@@ -108,7 +108,7 @@ public class Level
           break;
         case EntityType.Teleporter:
           newEntity = new Teleporter(entityT.X,entityT.Y, worldRoot, new Coordinates((int)entityT.ExtraData[0],(int)entityT.ExtraData[1])); 
-        //need commentzzz
+            // voor een tele word de extra data gebruikt, 1e element is int xcoordinaat, 2e element is int ycoordinaat
           break;
         case EntityType.Lever:
           newEntity = new Lever(entityT.X, entityT.Y, worldRoot);
