@@ -81,13 +81,14 @@ public class Player : Entity
     //lokale variabelen
 
     //gaan een duidelijkere naam geven
+    int step = 1;
     Coordinates positionPlayerSpacePlusMoveSpace;
     int widthPlayerSpacePlusMoveSpace;
     int heightPlayerSpacePlusMoveSpace; //de hoogtes en breedtes van de ruimte die de player inneemt PLUS de ruimte waar hij naartoe gaat gaan
 
 
     //voorlopig hebben deze variabelen nog deze waardes, de oude positie, en de oude hoogte en breedte
-    positionPlayerSpacePlusMoveSpace = Position; //position property van entity om de oude positie weer te geven (kan ook met de set een nieuwe positie meegeven maar dat gaan we nu niet doen)
+    positionPlayerSpacePlusMoveSpace = Position; //position property van entity om de oude positie weer te geven
     widthPlayerSpacePlusMoveSpace = Width;   //properties van entity, hoeveel ruimte de player inneemt
     heightPlayerSpacePlusMoveSpace = Height;
 
@@ -99,22 +100,22 @@ public class Player : Entity
     switch (direction) //Als de direction (parameter die je meegeeft bij het oproepen van de methode) gelijk is aan..
       {
         case Direction.Up://up gaat hij..
-          heightPlayerSpacePlusMoveSpace += 1; //hoogte van ruimte die de speler inneemt + 1 blockje vanboven selecteren --> hoogte is dan bv 3 ipv. 2 (2 is dan Width, originele hoogte van ruimte die speler inneemt = de originele waarde van heightPlayerSpacePlusMoveSpace) (block waar player op staat --> 4 blockjes, 2 hoog, 2 breed)
-          positionPlayerSpacePlusMoveSpace.YPosition -= 1; //veranderen de oude positie (altijd in de linkerbovenhoek van onze Block) -1 aangezien hoe hoger je in ons grid zit, hoe lager het getal van je positie bv 1tje naar boven --> van y positie 4 naar 3 bv. Positie van ons nieuw geselecteerd gebied ligt 1 tje hoger dan enkel de ruimte waar de speler zich bevind
+          heightPlayerSpacePlusMoveSpace += step; //hoogte van ruimte die de speler inneemt + 1 blockje vanboven selecteren --> hoogte is dan bv 3 ipv. 2 (2 is dan Width, originele hoogte van ruimte die speler inneemt = de originele waarde van heightPlayerSpacePlusMoveSpace) (block waar player op staat --> 4 blockjes, 2 hoog, 2 breed)
+          positionPlayerSpacePlusMoveSpace.YPosition -= step; //veranderen de oude positie (altijd in de linkerbovenhoek van onze Block) -1 aangezien hoe hoger je in ons grid zit, hoe lager het getal van je positie bv 1tje naar boven --> van y positie 4 naar 3 bv. Positie van ons nieuw geselecteerd gebied ligt 1 tje hoger dan enkel de ruimte waar de speler zich bevind
           break;
 
         case Direction.Down:
-          heightPlayerSpacePlusMoveSpace += 1; //hoogte gaat hier ook 3 zijn want het is nu gwn de ruimte die de speler inneemt + 1 blockje vanonder
+          heightPlayerSpacePlusMoveSpace += step; //hoogte gaat hier ook 3 zijn want het is nu gwn de ruimte die de speler inneemt + 1 blockje vanonder
           //hier verandert je position niet, aangezien de positie nog altijd in de linkerbovenhoek zit van ons groot veld dat we nu beschikbaar stellen
           break;
 
         case Direction.Left:
-          widthPlayerSpacePlusMoveSpace += 1; //breedte neemt ook met 1 toe, ruimte van player + 1 blockje aan de linkerkant
-          positionPlayerSpacePlusMoveSpace.XPosition -= 1; //veranderen de oude positie -1 aangezien hoe meer naar links je in ons grid zit, hoe lager het getal van je positie bv 1tje naar links --> van x positie 4 naar 3 bv. Positie van ons nieuw geselecteerd gebied ligt 1 tje meer naar links dan enkel de ruimte waar de speler zich bevind
+          widthPlayerSpacePlusMoveSpace += step; //breedte neemt ook met 1 toe, ruimte van player + 1 blockje aan de linkerkant
+          positionPlayerSpacePlusMoveSpace.XPosition -= step; //veranderen de oude positie -1 aangezien hoe meer naar links je in ons grid zit, hoe lager het getal van je positie bv 1tje naar links --> van x positie 4 naar 3 bv. Positie van ons nieuw geselecteerd gebied ligt 1 tje meer naar links dan enkel de ruimte waar de speler zich bevind
           break;
          
         case Direction.Right:
-          widthPlayerSpacePlusMoveSpace += 1; //ruimte van player + 1 blockje aan de rechterkant
+          widthPlayerSpacePlusMoveSpace += step; //ruimte van player + 1 blockje aan de rechterkant
           break;
 
           //default niet nodig aangezien je enkel die 4 dingen kan hebben bij de enum direction
@@ -124,8 +125,8 @@ public class Player : Entity
     // 4 dingen checken: of hij vanboven, vanonder, links of rechts niet uit het grid valt (geen blockjes meer zijn, aan de rand van je grid zit)
     if (positionPlayerSpacePlusMoveSpace.YPosition < 0 || //of positie niet vanboven uit grid valt
         positionPlayerSpacePlusMoveSpace.XPosition < 0 || //of positie links niet uit grid valt
-        positionPlayerSpacePlusMoveSpace.YPosition + heightPlayerSpacePlusMoveSpace - 1 >= GameController.CurrentLevel.Height || //vanonder uit grid, positie (bv positie 5 (y coordinaat) + (+, hoe meer naar onder je gaat) 3 hoog (- 1 (omdat je het deel van het grid waar je naar gaat moven ook meetelt)) = 7 (eindigt op coördinaat 7, als je grid maar 6 blokjes hoog is --> valt hij uit grid, mag niet  
-        positionPlayerSpacePlusMoveSpace.XPosition + widthPlayerSpacePlusMoveSpace -1 >= GameController.CurrentLevel.Width) //rechts uit grid
+        positionPlayerSpacePlusMoveSpace.YPosition + heightPlayerSpacePlusMoveSpace - step >= GameController.CurrentLevel.Height || //vanonder uit grid, positie (bv positie 5 (y coordinaat) + (+, hoe meer naar onder je gaat) 3 hoog (- 1 (omdat je het deel van het grid waar je naar gaat moven ook meetelt)) = 7 (eindigt op coördinaat 7, als je grid maar 6 blokjes hoog is --> valt hij uit grid, mag niet  
+        positionPlayerSpacePlusMoveSpace.XPosition + widthPlayerSpacePlusMoveSpace - step >= GameController.CurrentLevel.Width) //rechts uit grid
     {
       
       
@@ -155,7 +156,7 @@ public class Player : Entity
 
         //gaan nu alle kleuren die zich in het grid bevinden verzamelen (willen geen dubbele in de lijst)
 
-        bool isAlreadyAddedToColorList = false; //voorlopig op false zetten 
+        bool isAlreadyAddedToColorList = false; //voorlopig op false zetten, we doorlopen deze code meerdere keren dus willen geen dubbele elementen in de lijst  
 
 
 
@@ -198,19 +199,19 @@ public class Player : Entity
       switch (direction)
       {
         case Direction.Up:
-          newPosition.YPosition -= 1; //positie gaat 1tje naar boven --> boven is -
+          newPosition.YPosition -= step; //positie gaat 1tje naar boven --> boven is -
           break;
 
         case Direction.Down:
-          newPosition.YPosition += 1;
+          newPosition.YPosition += step;
           break;
 
         case Direction.Left:
-          newPosition.XPosition -= 1;//positie gaat 1tje naar links --> links is -
+          newPosition.XPosition -= step;//positie gaat 1tje naar links --> links is -
           break;
         
         case Direction.Right:
-          newPosition.XPosition += 1;
+          newPosition.XPosition += step;
           
           break;
 

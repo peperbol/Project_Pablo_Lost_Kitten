@@ -11,6 +11,7 @@ using System.Collections;
 public abstract class Entity : ObjectInScene, BlockField{
 
   //constructor
+  //protected omdat het een abstracte klasse is --> geen object hiervan aanmaken dus public is niet nodig (mag wel) private gaat ook niet natuurlijk want je hebt hem wel nodig in je subklasses
   protected Entity(GameObject gameObject, int xPosition, int yPosition, GameObject parent)// gameobject --> prefab die je gebruikt voor de entity, positie waar de entity gaat staan, de parent bv world
     : base(gameObject, xPosition, yPosition, parent)//als je een nieuwe entity gaat aanmaken, ga je deze dingen meegeven tussen de haakjes
   {

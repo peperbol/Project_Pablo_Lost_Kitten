@@ -97,10 +97,10 @@ public static class GameController//static class zodat je deze variabelen over a
 
 
 
-  public static void LoadLevel(string nameFileLevel) //methode om ons Level te laden, nameFileLevel = naam van het level dat je probeert te spelen (waar je op klikt in het Level overzicht)
+  public static void LoadSceneLevel(string nameFileLevel) //methode om onze scene van het level te laden, nameFileLevel = naam van het level dat je probeert te spelen (waar je op klikt in het Level overzicht)
   {
 
-
+    //waar ik op klik, MAG ik dat wel al laden?
     if (Int32.Parse(FileReaderWriter.GetProgress()) + 1 >= Int32.Parse(nameFileLevel)) //.parse --> string omzetten naar een int, als 00 = --> +1 ga je het eerste level (01) spelen. Bv je hebt level 2 uitgespeeld en kan nu level 3 spelen (stuk voor ">=" = 03) en je klikt op level 5 (stuk na de ">=", nameFileLevel = 05) --> is 03 groter of gelijk aan 05? nee, false --> gaat deze methode niet uitvoeren (gaat de scene en het level waar je op geklikt hebt niet gaan laden)
     {
 

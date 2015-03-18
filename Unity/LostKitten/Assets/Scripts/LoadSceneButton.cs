@@ -21,12 +21,12 @@ public class LoadSceneButton : MonoBehaviour
 
       if (useCurrentLevel) //als je het currentLevel wilt spelen door op de button te klikken
       {
-        GameController.LoadLevel(GameController.CurrentLevelName); //laad het currentLevel
+        GameController.LoadSceneLevel(GameController.CurrentLevelName); //laad het currentLevel
       }
 
       else
       {
-        GameController.LoadLevel(sceneToLoad); //als je een ander level wilt laden dan het currentlevel (wordt gebruikt bij de roadmap)
+        GameController.LoadSceneLevel(sceneToLoad); //als je een ander level wilt laden dan het currentlevel (wordt gebruikt bij de roadmap)
       }
       
 
