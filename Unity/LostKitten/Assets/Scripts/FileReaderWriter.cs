@@ -146,32 +146,41 @@ public static class FileReaderWriter
     string destinationPath = readwritefolder + slash + fileName;
     string sourcePath = Application.streamingAssetsPath + slash + fileName;
 
-
-
     if (!File.Exists(destinationPath)) // nakijken of het er al niet staat.
     {
-            
+      if (Application.platform == RuntimePlatform.Android)
+      {
+        Debug.Log("detected android");
+        WWW www = new WWW(sourcePath);
+        while (!www.isDone) { ;}                // Wait for download to complete - not pretty at all but easy hack for now 
+        if (String.IsNullOrEmpty(www.error))
+        {
+          string dir = destinationPath.Substring(0, destinationPath.LastIndexOf(slash)); //het volledige pad naar de bestemmings map
+          if (!Directory.Exists(dir))
+          {
+            // als de map er nog niet is maken we deze eerst aan.
+            Directory.CreateDirectory(dir);
+          }
+
+          File.WriteAllBytes(destinationPath, www.bytes);
+        }
+      }
+      else
+      {
+        Debug.Log("NOT detected android");
         //kijkt na of het bestand bestaat dat hij moet kopieren (folder "streamingAssets")
         if (File.Exists(sourcePath))
         {
-          
           string dir = destinationPath.Substring(0, destinationPath.LastIndexOf(slash)); //het volledige pad naar de bestemmings map
-          
           if (!Directory.Exists(dir))
-          { 
-
+          {
             // als de map er nog niet is maken we deze eerst aan.
-            Directory.CreateDirectory(dir );
-
+            Directory.CreateDirectory(dir);
           }
-
-
           // het bestand effectief kopieren
           File.Copy(sourcePath, destinationPath, true);
-
-        }//einde if
-          
-      }//einde nakijken of het bestaat
-    
-  }//einde methode
-}//einde klasse
+        }
+      }
+    }
+  }
+}
