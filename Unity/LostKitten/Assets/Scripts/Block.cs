@@ -40,7 +40,7 @@ public class Block : ObjectInScene {
           break;
       }
       //veranderd de material van de block
-      gameObject.transform.GetChild(0).renderer.material = (Material) Resources.Load(materialName, typeof(Material));
+      gameObject.transform.GetChild(0).GetComponent<Renderer>().material = (Material) Resources.Load(materialName, typeof(Material));
 
     }
   }
